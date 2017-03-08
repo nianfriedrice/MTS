@@ -92,7 +92,7 @@ public class Home extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel8.setText("On Now| Advance Sale");
 
-        jLabel9.setIcon(new javax.swing.ImageIcon("E:\\hkbu\\comp3046\\MTS\\img\\movie1.jpg")); // NOI18N
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/movie1.jpg"))); // NOI18N
         jLabel9.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
         org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, jLabel10, org.jdesktop.beansbinding.ObjectProperty.create(), jLabel9, org.jdesktop.beansbinding.BeanProperty.create("text"));
@@ -102,14 +102,14 @@ public class Home extends javax.swing.JFrame {
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel10.setText("何者 ─ 我們都想成為「誰」？");
 
-        jLabel11.setIcon(new javax.swing.ImageIcon("E:\\hkbu\\comp3046\\MTS\\img\\movie3.jpg")); // NOI18N
+        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/movie3.jpg"))); // NOI18N
         jLabel11.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
         jLabel12.setFont(new java.awt.Font("宋体", 0, 14)); // NOI18N
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel12.setText("美女與野獸");
 
-        jLabel13.setIcon(new javax.swing.ImageIcon("E:\\hkbu\\comp3046\\MTS\\img\\movie2.jpg")); // NOI18N
+        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/movie2.jpg"))); // NOI18N
         jLabel13.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, jLabel12, org.jdesktop.beansbinding.ObjectProperty.create(), jLabel13, org.jdesktop.beansbinding.BeanProperty.create("text"));
@@ -179,19 +179,19 @@ public class Home extends javax.swing.JFrame {
         gradientPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel4.setIcon(new javax.swing.ImageIcon("E:\\hkbu\\comp3046\\MTS\\img\\person logo 36px.png")); // NOI18N
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/person logo 36px.png"))); // NOI18N
         jLabel4.setText("My Bookings");
         jLabel4.setPreferredSize(new java.awt.Dimension(100, 40));
         gradientPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 120, 40));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel5.setIcon(new javax.swing.ImageIcon("E:\\hkbu\\comp3046\\MTS\\img\\home logo 36px.png")); // NOI18N
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/home logo 36px.png"))); // NOI18N
         jLabel5.setText("Home");
         jLabel5.setPreferredSize(new java.awt.Dimension(75, 40));
         gradientPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 120, 40));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel6.setIcon(new javax.swing.ImageIcon("E:\\hkbu\\comp3046\\MTS\\img\\movie logo.png")); // NOI18N
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/movie logo.png"))); // NOI18N
         jLabel6.setText("All Movies");
         jLabel6.setPreferredSize(new java.awt.Dimension(100, 40));
         gradientPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 120, -1));
