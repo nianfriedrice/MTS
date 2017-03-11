@@ -1,9 +1,7 @@
 package controller;
 
-import model.Cinema;
-import model.House;
-import model.Seat;
-import model.User;
+import model.*;
+
 import java.sql.*;
 import java.util.*;
 
@@ -399,7 +397,295 @@ public class DatabaseConnector {
     }
 
     /** Movie Operation */
+    public void createMovie(Movie movie) {
+        connect();
+        try {
+            Statement statement = connection.createStatement();
+            String sqlStr = "INSERT INTO MOVIE VALUES (" +
+                    movie.getMovieId() + ", " +
+                    "'" + movie.getName() + "', " +
+                    "'" + movie.getDescription() + "', " +
+                    movie.isIf3D() + ", " +
+                    movie.getLength() + ", " +
+                    movie.getCategory() + ", " +
+                    "'" + movie.getDirector() + "', " +
+                    "'" + movie.getStarring() + "', " +
+                    "str_to_date('" + movie.getReleaseDate() + "', '%d-%m-%Y'), " +
+                    "str_to_date('" + movie.getOffDate() + "', '%d-%m-%Y'), " +
+                    movie.getScore() +
+                    ")";
+            statement.executeUpdate(sqlStr);
+            statement.close();
+            System.out.println("Added movie with id: " + movie.getMovieId());
+        } catch (SQLException e) {
+            System.out.println("Create movie failed!");
+            e.printStackTrace();
+            return;
+        }
+        close();
+    }
 
+    public Movie findMovie(String name, boolean if3D) {
+        Movie foundMovie = null;
+        connect();
+        try {
+            Statement statement = connection.createStatement();
+            String sqlStr = "SELECT * FROM MOVIE " +
+                    "WHERE NAME = '" + name + "' AND IF_3D = " + if3D;
+            ResultSet resultSet = statement.executeQuery(sqlStr);
+            if (resultSet.next()) {
+                System.out.println("Found movie with id: " + resultSet.getInt(1));
+                foundMovie = new Movie(resultSet.getInt(1), resultSet.getString(2),
+                        resultSet.getString(3), resultSet.getBoolean(4), resultSet.getInt(5),
+                        resultSet.getInt(6), resultSet.getString(7), resultSet.getString(8),
+                        resultSet.getString(9), resultSet.getString(10), resultSet.getFloat(11));
+            } else {
+                System.out.println("Movie not found!");
+            }
+            resultSet.close();
+            statement.close();
+        } catch (SQLException e) {
+            System.out.println("Find movie failed!");
+            e.printStackTrace();
+        }
+        close();
+        return foundMovie;
+    }
+
+    public void updateMovie(String name, String description, boolean if3D, int length, int category, String director, String starring, String releaseDate, String offDate, float score) {
+        Movie foundMovie = findMovie(name,if3D);
+        connect();
+        try {
+            if (foundMovie != null) {
+                Statement statement = connection.createStatement();
+                String sqlStr = "UPDATE MOVIE " +
+                        "SET NAME = '" +
+                        name + "', DESCRIPTION = '" +
+                        description + "', IF_3D = " +
+                        if3D + ", LENGTH = " +
+                        length + ", CATEGORY = " +
+                        category + "', DIRECTOR = '" +
+                        director + "', STARRING = '" +
+                        starring + "', RELEASE_DATE = '" +
+                        releaseDate + "', OFF_DATE = '" +
+                        offDate + "', SCORE = " +
+                        score + " " +
+                        "WHERE ID = " + foundMovie.getMovieId();
+                statement.executeUpdate(sqlStr);
+                statement.close();
+                System.out.println("Updated movie with id: " + foundMovie.getMovieId());
+            }
+        } catch (SQLException e) {
+            System.out.println("Update movie failed!");
+            e.printStackTrace();
+            return;
+        }
+        close();
+    }
+
+    public void deleteMovie(String name, boolean if3D) {
+        Movie foundMovie = findMovie(name, if3D);
+        connect();
+        try {
+            Statement statement = connection.createStatement();
+            String sqlStr = "DELETE FROM MOVIE " +
+                    "WHERE ID = " + foundMovie.getMovieId();
+            statement.executeUpdate(sqlStr);
+            statement.close();
+            System.out.println("Deleted movie with id: " + foundMovie.getMovieId());
+        } catch (SQLException e) {
+            System.out.println("Delete movie failed!");
+            e.printStackTrace();
+            return;
+        }
+        close();
+    }
+
+    /** Schedule Operation */
+    public void createSchedule(Schedule schedule) {
+        connect();
+        try {
+            Statement statement = connection.createStatement();
+            String sqlStr = "INSERT INTO SCHEDULE VALUES (" +
+                    schedule.getScheduleId() + ", " +
+                    schedule.getMovieId() + ", " +
+                    schedule.getHouseId() + ", '" +
+                    "str_to_date('" + schedule.getStartTime() + "', '%d-%m-%Y'), " +
+                    schedule.getPrice() +
+                    ")";
+            statement.executeUpdate(sqlStr);
+            statement.close();
+            System.out.println("Added schedule with id: " + schedule.getScheduleId());
+        } catch (SQLException e) {
+            System.out.println("Create schedule failed!");
+            e.printStackTrace();
+            return;
+        }
+        close();
+    }
+
+    public Schedule findSchedule(String movieName, boolean if3D, String startTime) {
+        Schedule foundSchedule = null;
+        connect();
+        try {
+            Statement statement = connection.createStatement();
+            String sqlStr = "SELECT * FROM SCHDULE " +
+                    "WHERE NAME = '" + movieName + "' AND IF_3D = " + if3D + " AND START_TIME = str_to_date('" + startTime + "', '%d-%m-%Y')";
+            ResultSet resultSet = statement.executeQuery(sqlStr);
+            if (resultSet.next()) {
+                System.out.println("Found schedule with id: " + resultSet.getInt(1));
+                foundSchedule = new Schedule(resultSet.getInt(1), resultSet.getInt(2), resultSet.getInt(3),
+                        resultSet.getString(4), resultSet.getFloat(5));
+            } else {
+                System.out.println("Schedule not found!");
+            }
+            resultSet.close();
+            statement.close();
+        } catch (SQLException e) {
+            System.out.println("Find schedule failed!");
+            e.printStackTrace();
+        }
+        close();
+        return foundSchedule;
+    }
+
+    public ArrayList<Schedule> findSchedules(String movieName, boolean if3D) {
+        ArrayList<Schedule> foundSchedules = new ArrayList<Schedule>();
+        connect();
+        try {
+            Statement statement = connection.createStatement();
+            String sqlStr = "SELECT * FROM SCHDULE " +
+                    "WHERE NAME = '" + movieName + "' AND IF_3D = " + if3D;
+            ResultSet resultSet = statement.executeQuery(sqlStr);
+            if (resultSet == null) {
+                System.out.println("Schedule not found!");
+            }
+            while (resultSet.next()) {
+                System.out.println("Found schedules.");
+                foundSchedules.add(new Schedule(resultSet.getInt(1), resultSet.getInt(2), resultSet.getInt(3),
+                        resultSet.getString(4), resultSet.getFloat(5)));
+            }
+            resultSet.close();
+            statement.close();
+        } catch (SQLException e) {
+            System.out.println("Find schedule failed!");
+            e.printStackTrace();
+        }
+        close();
+        return foundSchedules;
+    }
+
+    public void updateSchedule(String movieName, boolean if3D, String houseName, String startTime, float price) {
+        Schedule foundSchedule = findSchedule(movieName, if3D, startTime);
+        connect();
+        try {
+            if (foundSchedule != null) {
+                Statement statement = connection.createStatement();
+                String sqlStr = "UPDATE SCHEDULE " +
+                        "SET MOVIE_ID = " +
+                        foundSchedule.getMovieId() + ", HOUSE_ID = " +
+                        foundSchedule.getHouseId() + ", START_TIME = str_to_date('" +
+                        startTime + "', '%d-%m-%Y'), PRICE = " +
+                        price + " " +
+                        "WHERE ID = " + foundSchedule.getScheduleId();
+                statement.executeUpdate(sqlStr);
+                statement.close();
+                System.out.println("Updated schedule with id: " + foundSchedule.getScheduleId());
+            }
+        } catch (SQLException e) {
+            System.out.println("Update schedule failed!");
+            e.printStackTrace();
+            return;
+        }
+        close();
+    }
+
+    public void deleteSchedule(String movieName, boolean if3D, String startTime) {
+        Schedule foundSchedule = findSchedule(movieName, if3D, startTime);
+        connect();
+        try {
+            Statement statement = connection.createStatement();
+            String sqlStr = "DELETE FROM SCHEDULE " +
+                    "WHERE ID = " + foundSchedule.getScheduleId();
+            statement.executeUpdate(sqlStr);
+            statement.close();
+            System.out.println("Deleted schedule with id: " + foundSchedule.getScheduleId());
+        } catch (SQLException e) {
+            System.out.println("Delete schedule failed!");
+            e.printStackTrace();
+            return;
+        }
+        close();
+    }
+
+    /** Ticket Operation */
+    public void createTicket(Ticket ticket) {
+        connect();
+        try {
+            Statement statement = connection.createStatement();
+            String sqlStr = "INSERT INTO TICKET VALUES (" +
+                    ticket.getTicketId() + ", " +
+                    ticket.getUserId() + ", " +
+                    ticket.getScheduleId() + ", " +
+                    ticket.getCategory() + ", " +
+                    ticket.getSeatId() +
+                    ")";
+            statement.executeUpdate(sqlStr);
+            statement.close();
+            System.out.println("Added ticket with id: " + ticket.getTicketId());
+        } catch (SQLException e) {
+            System.out.println("Create ticket failed!");
+            e.printStackTrace();
+            return;
+        }
+        close();
+    }
+
+    public Ticket findTicket(String username, Schedule schedule, int seatRowNo, int seatColumnNo) {
+        int userId = findUser(username).getUserId();
+        int scheduleId = schedule.getScheduleId();
+        int seatId = findSeat(seatRowNo, seatColumnNo, schedule.getHouseId()).getSeatId();
+        Ticket foundTicket = null;
+        connect();
+        try {
+            Statement statement = connection.createStatement();
+            String sqlStr = "SELECT * FROM TICKET " +
+                    "WHERE USER_ID = " + userId + " AND SCHEDULE_ID = " + scheduleId + " AND SEAT_ID = " + seatId;
+            ResultSet resultSet = statement.executeQuery(sqlStr);
+            if (resultSet.next()) {
+                System.out.println("Found ticket with id: " + resultSet.getInt(1));
+                foundTicket = new Ticket(resultSet.getInt(1), resultSet.getInt(2),
+                        resultSet.getInt(3), resultSet.getInt(4), resultSet.getInt(5));
+            } else {
+                System.out.println("Ticket not found!");
+            }
+            resultSet.close();
+            statement.close();
+        } catch (SQLException e) {
+            System.out.println("Find ticket failed!");
+            e.printStackTrace();
+        }
+        close();
+        return foundTicket;
+    }
+
+    public void deleteTicket(String username, Schedule schedule, int seatRowNo, int seatColumnNo) {
+        Ticket foundTicket = findTicket(username, schedule, seatRowNo, seatColumnNo);
+        connect();
+        try {
+            Statement statement = connection.createStatement();
+            String sqlStr = "DELETE FROM TICKET " +
+                    "WHERE ID = " + foundTicket.getTicketId();
+            statement.executeUpdate(sqlStr);
+            statement.close();
+            System.out.println("Deleted ticket with id: " + foundTicket.getTicketId());
+        } catch (SQLException e) {
+            System.out.println("Delete ticket failed!");
+            e.printStackTrace();
+            return;
+        }
+        close();
+    }
 
     private void close() {
         try {
