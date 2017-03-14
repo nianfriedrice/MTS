@@ -146,13 +146,12 @@ public class Home extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         menu = new view.GradientPanel();
-        homeMenu = new javax.swing.JPanel();
+        homeMemu = new view.GradientPanel();
         bookingBtn = new javax.swing.JLabel();
         aboutUs = new javax.swing.JLabel();
         homeButton = new javax.swing.JLabel();
         allMoviesBtn = new javax.swing.JLabel();
-        adminPanel = new javax.swing.JPanel();
-        aboutUs1 = new javax.swing.JLabel();
+        gradientPanel1 = new view.GradientPanel();
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -1160,23 +1159,24 @@ public class Home extends javax.swing.JFrame {
             .addGroup(IndexLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(IndexLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel3))
-                .addContainerGap(638, Short.MAX_VALUE))
-            .addGroup(IndexLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(IndexLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(40, 40, 40)
-                .addGroup(IndexLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
-                .addGroup(IndexLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24))
+                    .addGroup(IndexLayout.createSequentialGroup()
+                        .addGroup(IndexLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel3))
+                        .addContainerGap(638, Short.MAX_VALUE))
+                    .addGroup(IndexLayout.createSequentialGroup()
+                        .addGroup(IndexLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(40, 40, 40)
+                        .addGroup(IndexLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                        .addGroup(IndexLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(24, 24, 24))))
         );
         IndexLayout.setVerticalGroup(
             IndexLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1201,9 +1201,6 @@ public class Home extends javax.swing.JFrame {
         DisplayPanel.add(Index, "index");
 
         menu.setLayout(new java.awt.CardLayout());
-
-        homeMenu.setBackground(new java.awt.Color(241, 109, 122));
-        homeMenu.setPreferredSize(new java.awt.Dimension(147, 400));
 
         bookingBtn.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         bookingBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/person logo 36px.png"))); // NOI18N
@@ -1256,62 +1253,53 @@ public class Home extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout homeMenuLayout = new javax.swing.GroupLayout(homeMenu);
-        homeMenu.setLayout(homeMenuLayout);
-        homeMenuLayout.setHorizontalGroup(
-            homeMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, homeMenuLayout.createSequentialGroup()
-                .addGroup(homeMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(allMoviesBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(homeMenuLayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(homeMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, homeMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(bookingBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(aboutUs, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(homeButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))))
+        javax.swing.GroupLayout homeMemuLayout = new javax.swing.GroupLayout(homeMemu);
+        homeMemu.setLayout(homeMemuLayout);
+        homeMemuLayout.setHorizontalGroup(
+            homeMemuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(homeMemuLayout.createSequentialGroup()
+                .addGroup(homeMemuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(allMoviesBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, homeMemuLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(homeMemuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, homeMemuLayout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(homeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(bookingBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, homeMemuLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(aboutUs, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
-        homeMenuLayout.setVerticalGroup(
-            homeMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(homeMenuLayout.createSequentialGroup()
+        homeMemuLayout.setVerticalGroup(
+            homeMemuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(homeMemuLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(homeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(2, 2, 2)
                 .addComponent(allMoviesBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(bookingBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(aboutUs, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(393, Short.MAX_VALUE))
+                .addContainerGap(407, Short.MAX_VALUE))
         );
 
-        menu.add(homeMenu, "home");
+        menu.add(homeMemu, "card4");
 
-        adminPanel.setBackground(new java.awt.Color(241, 109, 122));
-        adminPanel.setMaximumSize(new java.awt.Dimension(300, 800));
-        adminPanel.setPreferredSize(new java.awt.Dimension(147, 800));
-
-        aboutUs1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        aboutUs1.setText("About Us");
-
-        javax.swing.GroupLayout adminPanelLayout = new javax.swing.GroupLayout(adminPanel);
-        adminPanel.setLayout(adminPanelLayout);
-        adminPanelLayout.setHorizontalGroup(
-            adminPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(adminPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(aboutUs1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        javax.swing.GroupLayout gradientPanel1Layout = new javax.swing.GroupLayout(gradientPanel1);
+        gradientPanel1.setLayout(gradientPanel1Layout);
+        gradientPanel1Layout.setHorizontalGroup(
+            gradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 135, Short.MAX_VALUE)
         );
-        adminPanelLayout.setVerticalGroup(
-            adminPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(adminPanelLayout.createSequentialGroup()
-                .addComponent(aboutUs1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 589, Short.MAX_VALUE))
+        gradientPanel1Layout.setVerticalGroup(
+            gradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 631, Short.MAX_VALUE)
         );
 
-        menu.add(adminPanel, "card3");
+        menu.add(gradientPanel1, "card3");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -1558,16 +1546,15 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel Register8;
     private javax.swing.JLabel Register9;
     private javax.swing.JLabel aboutUs;
-    private javax.swing.JLabel aboutUs1;
-    private javax.swing.JPanel adminPanel;
     private javax.swing.JTabbedPane allMovies;
     private javax.swing.JLabel allMoviesBtn;
     private javax.swing.JLabel bookingBtn;
     private java.awt.Choice choice1;
     private javax.swing.JLabel firMonLabel;
+    private view.GradientPanel gradientPanel1;
     private javax.swing.JPanel header;
     private javax.swing.JLabel homeButton;
-    private javax.swing.JPanel homeMenu;
+    private view.GradientPanel homeMemu;
     private javax.swing.JLabel image;
     public javax.swing.JButton jButton1;
     public javax.swing.JButton jButton2;
