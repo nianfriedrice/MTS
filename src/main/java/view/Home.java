@@ -151,7 +151,11 @@ public class Home extends javax.swing.JFrame {
         aboutUs = new javax.swing.JLabel();
         homeButton = new javax.swing.JLabel();
         allMoviesBtn = new javax.swing.JLabel();
-        gradientPanel1 = new view.GradientPanel();
+        adminPanel = new view.GradientPanel();
+        aboutUs1 = new javax.swing.JLabel();
+        homeButton1 = new javax.swing.JLabel();
+        bookingBtn2 = new javax.swing.JLabel();
+        bookingBtn3 = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -1288,18 +1292,91 @@ public class Home extends javax.swing.JFrame {
 
         menu.add(homeMemu, "card4");
 
-        javax.swing.GroupLayout gradientPanel1Layout = new javax.swing.GroupLayout(gradientPanel1);
-        gradientPanel1.setLayout(gradientPanel1Layout);
-        gradientPanel1Layout.setHorizontalGroup(
-            gradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 135, Short.MAX_VALUE)
+        aboutUs1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        aboutUs1.setText("About Us");
+
+        homeButton1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        homeButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/home logo 36px.png"))); // NOI18N
+        homeButton1.setText("Home");
+        homeButton1.setPreferredSize(new java.awt.Dimension(75, 40));
+        homeButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                homeButton1MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                homeButton1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                homeButton1MouseExited(evt);
+            }
+        });
+
+        bookingBtn2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        bookingBtn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/edit logo.png"))); // NOI18N
+        bookingBtn2.setText("Edit Movie");
+        bookingBtn2.setPreferredSize(new java.awt.Dimension(100, 40));
+        bookingBtn2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bookingBtn2MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                bookingBtn2MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                bookingBtn2MouseExited(evt);
+            }
+        });
+
+        bookingBtn3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        bookingBtn3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/schedule.png"))); // NOI18N
+        bookingBtn3.setText("Schedule");
+        bookingBtn3.setPreferredSize(new java.awt.Dimension(100, 40));
+        bookingBtn3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bookingBtn3MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                bookingBtn3MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                bookingBtn3MouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout adminPanelLayout = new javax.swing.GroupLayout(adminPanel);
+        adminPanel.setLayout(adminPanelLayout);
+        adminPanelLayout.setHorizontalGroup(
+            adminPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(adminPanelLayout.createSequentialGroup()
+                .addGroup(adminPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, adminPanelLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(aboutUs1, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(adminPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(adminPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(bookingBtn2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, adminPanelLayout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(homeButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(bookingBtn3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap())
         );
-        gradientPanel1Layout.setVerticalGroup(
-            gradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 631, Short.MAX_VALUE)
+        adminPanelLayout.setVerticalGroup(
+            adminPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(adminPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(homeButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(2, 2, 2)
+                .addComponent(bookingBtn2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(bookingBtn3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(62, 62, 62)
+                .addComponent(aboutUs1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(351, Short.MAX_VALUE))
         );
 
-        menu.add(gradientPanel1, "card3");
+        menu.add(adminPanel, "card3");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -1493,6 +1570,42 @@ public class Home extends javax.swing.JFrame {
         updatePanel("movieDetail");
     }//GEN-LAST:event_jLabel28MouseClicked
 
+    private void homeButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_homeButton1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_homeButton1MouseClicked
+
+    private void homeButton1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_homeButton1MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_homeButton1MouseEntered
+
+    private void homeButton1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_homeButton1MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_homeButton1MouseExited
+
+    private void bookingBtn2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bookingBtn2MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bookingBtn2MouseClicked
+
+    private void bookingBtn2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bookingBtn2MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bookingBtn2MouseEntered
+
+    private void bookingBtn2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bookingBtn2MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bookingBtn2MouseExited
+
+    private void bookingBtn3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bookingBtn3MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bookingBtn3MouseClicked
+
+    private void bookingBtn3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bookingBtn3MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bookingBtn3MouseEntered
+
+    private void bookingBtn3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bookingBtn3MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bookingBtn3MouseExited
+
     /**
      * @param args the command line arguments
      */
@@ -1546,14 +1659,18 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel Register8;
     private javax.swing.JLabel Register9;
     private javax.swing.JLabel aboutUs;
+    private javax.swing.JLabel aboutUs1;
+    private view.GradientPanel adminPanel;
     private javax.swing.JTabbedPane allMovies;
     private javax.swing.JLabel allMoviesBtn;
     private javax.swing.JLabel bookingBtn;
+    private javax.swing.JLabel bookingBtn2;
+    private javax.swing.JLabel bookingBtn3;
     private java.awt.Choice choice1;
     private javax.swing.JLabel firMonLabel;
-    private view.GradientPanel gradientPanel1;
     private javax.swing.JPanel header;
     private javax.swing.JLabel homeButton;
+    private javax.swing.JLabel homeButton1;
     private view.GradientPanel homeMemu;
     private javax.swing.JLabel image;
     public javax.swing.JButton jButton1;
