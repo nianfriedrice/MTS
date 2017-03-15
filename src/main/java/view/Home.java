@@ -21,6 +21,7 @@ public class Home extends javax.swing.JFrame {
      * Creates new form Home
      */
     public Home(MainController mc) {
+        this.mc = mc;
         setMon();
         initComponents();
     }
@@ -60,6 +61,7 @@ public class Home extends javax.swing.JFrame {
         username = new javax.swing.JTextField();
         pwd = new javax.swing.JPasswordField();
         loginEnterBtn = new javax.swing.JButton();
+        warningLabel = new javax.swing.JLabel();
         Register = new javax.swing.JPanel();
         registerTitle = new javax.swing.JLabel();
         Register1 = new javax.swing.JLabel();
@@ -267,6 +269,9 @@ public class Home extends javax.swing.JFrame {
             }
         });
 
+        warningLabel.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        warningLabel.setForeground(new java.awt.Color(204, 0, 0));
+
         javax.swing.GroupLayout LoginLayout = new javax.swing.GroupLayout(Login);
         Login.setLayout(LoginLayout);
         LoginLayout.setHorizontalGroup(
@@ -281,14 +286,18 @@ public class Home extends javax.swing.JFrame {
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(LoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(pwd)
-                            .addComponent(username, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE))))
-                .addContainerGap(407, Short.MAX_VALUE))
+                            .addComponent(warningLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
+                            .addGroup(LoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(pwd)
+                                .addComponent(username, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)))))
+                .addContainerGap(405, Short.MAX_VALUE))
         );
         LoginLayout.setVerticalGroup(
             LoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(LoginLayout.createSequentialGroup()
-                .addGap(41, 41, 41)
+                .addContainerGap()
+                .addComponent(warningLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(LoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(username, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -298,7 +307,7 @@ public class Home extends javax.swing.JFrame {
                     .addComponent(pwd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(loginEnterBtn)
-                .addContainerGap(479, Short.MAX_VALUE))
+                .addContainerGap(483, Short.MAX_VALUE))
         );
 
         DisplayPanel.add(Login, "login");
@@ -1444,6 +1453,12 @@ public class Home extends javax.swing.JFrame {
             card.show(DisplayPanel, panelName);
     }
     
+    private void updateMenu(String panelName){
+            CardLayout card = (CardLayout) menu.getLayout();
+            card.show(menu, panelName);
+    }
+    
+    
     private void homeButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_homeButtonMouseClicked
             updatePanel("index");
     }//GEN-LAST:event_homeButtonMouseClicked
@@ -1626,17 +1641,18 @@ public class Home extends javax.swing.JFrame {
         // TODO add your handling code here:
         String result;
         result = mc.login(username.getText(),pwd.getPassword());
-        if(result.equals("admin"))
+        System.out.print("result:" +result);
+        if(result.equals("Admin"))
         {
-            DisplayPanel.add(Index, "index");
-            menu.add(adminPanel,"AdminPanel");
+            updatePanel("index");
+            updateMenu("AdminPanel");
         }
-        else if(result.equals("0"))
+        else if(result.equals("1"))
         {
-            //display error msg
+            warningLabel.setText("Wrong Password. Please Try Again.");
         }
-        else{
-            //
+        else if(result.equals("0")){
+            warningLabel.setText("Login Failed. Please Try Again.");
         }
         
     }//GEN-LAST:event_loginEnterBtnMouseClicked
@@ -1753,6 +1769,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel title;
     private javax.swing.JScrollPane upcoming;
     private javax.swing.JTextField username;
+    private javax.swing.JLabel warningLabel;
     private javax.swing.JLabel yearLabel;
     // End of variables declaration//GEN-END:variables
    

@@ -55,17 +55,17 @@ public class MainController {
     }
 
     public String login(String text, char[] pwd) {
-        String username = text;
         String password = new String(pwd);
         User user;
         try{
             user = dbc.findUser(text);
             if(user.getPassword().equals(password))
             {
+                System.out.print("User" +user.getPassword()+" " + user.getName());
                 return user.getName();}
             else
-                //invalid account
-                return "0";
+                //wrong pwd
+                return "1";
         }
         catch(Exception ex)
         {
