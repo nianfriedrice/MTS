@@ -5,8 +5,11 @@
  */
 package controller;
 
+import model.Movie;
 import model.User;
 import view.Home;
+import java.util.ArrayList;
+
 
 /**
  *
@@ -52,6 +55,14 @@ public class MainController {
                 MainController myController = new MainController();
             }
         });
+    }
+    
+    public ArrayList<Movie> getOnShowMovies(){
+        return null;
+    }
+    
+    public ArrayList<Movie> getUpcomingMovies(){
+        return null;
     }
 
     public String login(String text, char[] pwd) {
