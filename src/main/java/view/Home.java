@@ -5,6 +5,7 @@
  */
 package view;
 
+import controller.MainController;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -15,11 +16,11 @@ import java.util.*;
  * @author lenovo
  */
 public class Home extends javax.swing.JFrame {
-
+    MainController mc;
     /**
      * Creates new form Home
      */
-    public Home() {
+    public Home(MainController mc) {
         setMon();
         initComponents();
     }
@@ -56,9 +57,9 @@ public class Home extends javax.swing.JFrame {
         Login = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jPasswordField1 = new javax.swing.JPasswordField();
-        jButton1 = new javax.swing.JButton();
+        username = new javax.swing.JTextField();
+        pwd = new javax.swing.JPasswordField();
+        loginEnterBtn = new javax.swing.JButton();
         Register = new javax.swing.JPanel();
         registerTitle = new javax.swing.JLabel();
         Register1 = new javax.swing.JLabel();
@@ -245,16 +246,26 @@ public class Home extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel5.setText("User name");
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        username.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                usernameActionPerformed(evt);
             }
         });
 
-        jButton1.setBackground(new java.awt.Color(153, 153, 255));
-        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Login");
+        loginEnterBtn.setBackground(new java.awt.Color(153, 153, 255));
+        loginEnterBtn.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        loginEnterBtn.setForeground(new java.awt.Color(255, 255, 255));
+        loginEnterBtn.setText("Login");
+        loginEnterBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                loginEnterBtnMouseClicked(evt);
+            }
+        });
+        loginEnterBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loginEnterBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout LoginLayout = new javax.swing.GroupLayout(Login);
         Login.setLayout(LoginLayout);
@@ -263,15 +274,15 @@ public class Home extends javax.swing.JFrame {
             .addGroup(LoginLayout.createSequentialGroup()
                 .addGap(47, 47, 47)
                 .addGroup(LoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton1)
+                    .addComponent(loginEnterBtn)
                     .addGroup(LoginLayout.createSequentialGroup()
                         .addGroup(LoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(LoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPasswordField1)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE))))
+                            .addComponent(pwd)
+                            .addComponent(username, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE))))
                 .addContainerGap(407, Short.MAX_VALUE))
         );
         LoginLayout.setVerticalGroup(
@@ -279,14 +290,14 @@ public class Home extends javax.swing.JFrame {
             .addGroup(LoginLayout.createSequentialGroup()
                 .addGap(41, 41, 41)
                 .addGroup(LoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(username, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(LoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(pwd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
+                .addComponent(loginEnterBtn)
                 .addContainerGap(479, Short.MAX_VALUE))
         );
 
@@ -1376,7 +1387,7 @@ public class Home extends javax.swing.JFrame {
                 .addContainerGap(351, Short.MAX_VALUE))
         );
 
-        menu.add(adminPanel, "card3");
+        menu.add(adminPanel, "AdminPanel");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -1458,9 +1469,9 @@ public class Home extends javax.swing.JFrame {
         barBtnAction(loginBtn, "Exit");
     }//GEN-LAST:event_loginBtnMouseExited
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void usernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_usernameActionPerformed
 
     private void registerBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_registerBtnMouseClicked
         // TODO add your handling code here:
@@ -1606,40 +1617,30 @@ public class Home extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_bookingBtn3MouseExited
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void loginEnterBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginEnterBtnActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_loginEnterBtnActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Home().setVisible(true);
-            }
-        });
-    }
+    private void loginEnterBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginEnterBtnMouseClicked
+        // TODO add your handling code here:
+        String result;
+        result = mc.login(username.getText(),pwd.getPassword());
+        if(result.equals("admin"))
+        {
+            DisplayPanel.add(Index, "index");
+            menu.add(adminPanel,"AdminPanel");
+        }
+        else if(result.equals("0"))
+        {
+            //display error msg
+        }
+        else{
+            //
+        }
+        
+    }//GEN-LAST:event_loginEnterBtnMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel BookingRecord;
@@ -1673,7 +1674,6 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel homeButton1;
     private view.GradientPanel homeMemu;
     private javax.swing.JLabel image;
-    public javax.swing.JButton jButton1;
     public javax.swing.JButton jButton2;
     public javax.swing.JButton jButton3;
     private javax.swing.JCheckBox jCheckBox1;
@@ -1712,7 +1712,6 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JPasswordField jPasswordField2;
     private javax.swing.JPasswordField jPasswordField3;
     private javax.swing.JScrollPane jScrollPane1;
@@ -1721,7 +1720,6 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
@@ -1729,6 +1727,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
     private javax.swing.JLabel loginBtn;
+    public javax.swing.JButton loginEnterBtn;
     private view.GradientPanel menu;
     private javax.swing.JPanel movieContainer;
     private javax.swing.JPanel movieContainer1;
@@ -1741,6 +1740,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel name7;
     private javax.swing.JLabel name8;
     private javax.swing.JScrollPane onShow;
+    private javax.swing.JPasswordField pwd;
     private javax.swing.JLabel registerBtn;
     private javax.swing.JLabel registerTitle;
     private javax.swing.JTextField searchBar;
@@ -1752,6 +1752,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel thrMonLabel;
     private javax.swing.JLabel title;
     private javax.swing.JScrollPane upcoming;
+    private javax.swing.JTextField username;
     private javax.swing.JLabel yearLabel;
     // End of variables declaration//GEN-END:variables
    
