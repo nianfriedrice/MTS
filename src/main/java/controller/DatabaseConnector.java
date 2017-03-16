@@ -406,9 +406,10 @@ public class DatabaseConnector {
                     "'" + movie.getName() + "', " +
                     "'" + movie.getImageUrl() + "', " +
                     "'" + movie.getDescription() + "', " +
+                    "'" + movie.getLanguage() + "', " +
                     movie.isIf3D() + ", " +
                     movie.getLength() + ", " +
-                    movie.getCategory() + ", " +
+                    "'" + movie.getCategory() + "', " +
                     "'" + movie.getDirector() + "', " +
                     "'" + movie.getStarring() + "', " +
                     "str_to_date('" + movie.getReleaseDate() + "', '%d-%m-%Y'), " +
@@ -437,9 +438,10 @@ public class DatabaseConnector {
             if (resultSet.next()) {
                 System.out.println("Found movie with id: " + resultSet.getInt(1));
                 foundMovie = new Movie(resultSet.getInt(1), resultSet.getString(2),
-                        resultSet.getString(3), resultSet.getString(4), resultSet.getBoolean(5), resultSet.getInt(6),
-                        resultSet.getInt(7), resultSet.getString(8), resultSet.getString(9),
-                        resultSet.getString(10), resultSet.getString(11), resultSet.getFloat(12));
+                        resultSet.getString(3), resultSet.getString(4), resultSet.getString(5),
+                        resultSet.getBoolean(6), resultSet.getInt(7), resultSet.getString(8),
+                        resultSet.getString(9), resultSet.getString(10), resultSet.getString(11),
+                        resultSet.getString(12), resultSet.getFloat(13));
             } else {
                 System.out.println("Movie not found!");
             }
@@ -453,7 +455,7 @@ public class DatabaseConnector {
         return foundMovie;
     }
 
-    public void updateMovie(String name, String imageUrl, String description, boolean if3D, int length, int category, String director, String starring, String releaseDate, String offDate, float score) {
+    public void updateMovie(String name, String imageUrl, String description, String language, boolean if3D, int length, String category, String director, String starring, String releaseDate, String offDate, float score) {
         Movie foundMovie = findMovie(name,if3D);
         connect();
         try {
@@ -463,9 +465,10 @@ public class DatabaseConnector {
                         "SET NAME = '" +
                         name + "', IMAGE_URL = '" +
                         imageUrl + "', DESCRIPTION = '" +
-                        description + "', IF_3D = " +
+                        description + "', LANGUAGE = '" +
+                        language + "', IF_3D = " +
                         if3D + ", LENGTH = " +
-                        length + ", CATEGORY = " +
+                        length + ", CATEGORY = '" +
                         category + "', DIRECTOR = '" +
                         director + "', STARRING = '" +
                         starring + "', RELEASE_DATE = '" +
