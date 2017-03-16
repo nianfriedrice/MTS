@@ -404,6 +404,7 @@ public class DatabaseConnector {
             String sqlStr = "INSERT INTO MOVIE VALUES (" +
                     movie.getMovieId() + ", " +
                     "'" + movie.getName() + "', " +
+                    "'" + movie.getImageUrl() + "', " +
                     "'" + movie.getDescription() + "', " +
                     movie.isIf3D() + ", " +
                     movie.getLength() + ", " +
@@ -436,9 +437,9 @@ public class DatabaseConnector {
             if (resultSet.next()) {
                 System.out.println("Found movie with id: " + resultSet.getInt(1));
                 foundMovie = new Movie(resultSet.getInt(1), resultSet.getString(2),
-                        resultSet.getString(3), resultSet.getBoolean(4), resultSet.getInt(5),
-                        resultSet.getInt(6), resultSet.getString(7), resultSet.getString(8),
-                        resultSet.getString(9), resultSet.getString(10), resultSet.getFloat(11));
+                        resultSet.getString(3), resultSet.getString(4), resultSet.getBoolean(5), resultSet.getInt(6),
+                        resultSet.getInt(7), resultSet.getString(8), resultSet.getString(9),
+                        resultSet.getString(10), resultSet.getString(11), resultSet.getFloat(12));
             } else {
                 System.out.println("Movie not found!");
             }
@@ -452,7 +453,7 @@ public class DatabaseConnector {
         return foundMovie;
     }
 
-    public void updateMovie(String name, String description, boolean if3D, int length, int category, String director, String starring, String releaseDate, String offDate, float score) {
+    public void updateMovie(String name, String imageUrl, String description, boolean if3D, int length, int category, String director, String starring, String releaseDate, String offDate, float score) {
         Movie foundMovie = findMovie(name,if3D);
         connect();
         try {
@@ -460,7 +461,8 @@ public class DatabaseConnector {
                 Statement statement = connection.createStatement();
                 String sqlStr = "UPDATE MOVIE " +
                         "SET NAME = '" +
-                        name + "', DESCRIPTION = '" +
+                        name + "', IMAGE_URL = '" +
+                        imageUrl + "', DESCRIPTION = '" +
                         description + "', IF_3D = " +
                         if3D + ", LENGTH = " +
                         length + ", CATEGORY = " +
