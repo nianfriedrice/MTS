@@ -454,7 +454,6 @@ public class DatabaseConnector {
         close();
         return foundMovie;
     }
-<<<<<<< HEAD
     
     public Movie findMovie(String id){
         Movie foundMovie = null;
@@ -467,9 +466,10 @@ public class DatabaseConnector {
             if (resultSet.next()) {
                 System.out.println("Found movie with id: " + resultSet.getInt(1));
                 foundMovie = new Movie(resultSet.getInt(1), resultSet.getString(2),
-                        resultSet.getString(3), resultSet.getBoolean(4), resultSet.getInt(5),
-                        resultSet.getInt(6), resultSet.getString(7), resultSet.getString(8),
-                        resultSet.getString(9), resultSet.getString(10), resultSet.getFloat(11));
+                        resultSet.getString(3), resultSet.getString(4), resultSet.getString(5),
+                        resultSet.getBoolean(6), resultSet.getInt(7), resultSet.getString(8),
+                        resultSet.getString(9), resultSet.getString(10), resultSet.getString(11),
+                        resultSet.getString(12), resultSet.getFloat(13));
             } else {
                 System.out.println("Movie not found!");
             }
@@ -482,12 +482,8 @@ public class DatabaseConnector {
         close();
         return foundMovie;
     }
-        
-    public void updateMovie(String name, String description, boolean if3D, int length, int category, String director, String starring, String releaseDate, String offDate, float score) {
-=======
 
     public void updateMovie(String name, String imageUrl, String description, String language, boolean if3D, int length, String category, String director, String starring, String releaseDate, String offDate, float score) {
->>>>>>> refs/remotes/origin/develop
         Movie foundMovie = findMovie(name,if3D);
         connect();
         try {
@@ -579,7 +575,7 @@ public class DatabaseConnector {
             e.printStackTrace();
         }
         close();
-        return idList;
+        return idList.substring(1);
     }
 
     public Schedule findSchedule(String movieName, boolean if3D, String startTime) {

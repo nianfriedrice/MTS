@@ -122,4 +122,8 @@ public class Movie {
     public float getScore() {
         return score;
     }
+    
+    public void setImageUrl(String url){
+        imageUrl = url;
+    }
 }
