@@ -10,13 +10,12 @@ public class MovieTicketingSystemSimulator {
         DatabaseConnector databaseConnector = new DatabaseConnector();
 
         /** create seats
-         Seat[] seats = new Seat[40];
-         for (int i=0;i<40;i++) {
-         seats[i] = new Seat((i+40)/20 + 1,(i+40)%20 + 1,0);
+         Seat[] seats = new Seat[99];
+         for (int i=0;i<99;i++) {
+         seats[i] = new Seat((i)/20 + 1,(i)%20 + 1,16);
          }
          int initSeatId = Seat.getInitSeatIdInDb();
          databaseConnector.createSeat(initSeatId, seats);
          */
-        databaseConnector.findCinema("Star Cinema");
     }
 }
