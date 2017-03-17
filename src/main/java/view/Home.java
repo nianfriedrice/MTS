@@ -1882,7 +1882,7 @@ public class Home extends javax.swing.JFrame {
 
     private void editMovieBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editMovieBtnMouseClicked
         // TODO add your handling code here:
-        updatePanel(DisplayPanel, "allMovies");
+        updatePanel(DisplayPanel, "movieDetail");
     }//GEN-LAST:event_editMovieBtnMouseClicked
 
     private void editMovieBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editMovieBtnMouseEntered
