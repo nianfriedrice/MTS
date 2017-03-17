@@ -10,14 +10,16 @@ import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.util.*;
+import javax.swing.JComponent;
 import model.Movie;
 
 /**
  *
- * @author lenovo
+ * @author Sisi R
  */
 public class Home extends javax.swing.JFrame {
     MainController mc;
+    public boolean permission = false;
     /**
      * Creates new form Home
      */
@@ -74,7 +76,6 @@ public class Home extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
-        indexPanel = new view.IndexPanel(this);
         Login = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -124,6 +125,10 @@ public class Home extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         seatPlane = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
+        description = new view.EditableJLabel("default", false);
+        director = new view.EditableJLabel("default", false);
+        writers = new view.EditableJLabel("default", false);
+        stars = new view.EditableJLabel("default", false);
         allMovies = new javax.swing.JTabbedPane();
         onShow = new javax.swing.JScrollPane();
         jPanel3 = new javax.swing.JPanel();
@@ -416,28 +421,6 @@ public class Home extends javax.swing.JFrame {
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
 
-        javax.swing.GroupLayout indexPanelLayout = new javax.swing.GroupLayout(indexPanel);
-        indexPanel.setLayout(indexPanelLayout);
-        indexPanelLayout.setHorizontalGroup(
-            indexPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        indexPanelLayout.setVerticalGroup(
-            indexPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 288, Short.MAX_VALUE)
-        );
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(indexPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(indexPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-
         javax.swing.GroupLayout IndexLayout = new javax.swing.GroupLayout(Index);
         Index.setLayout(IndexLayout);
         IndexLayout.setHorizontalGroup(
@@ -532,7 +515,7 @@ public class Home extends javax.swing.JFrame {
                     .addComponent(pwd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(loginEnterBtn)
-                .addContainerGap(496, Short.MAX_VALUE))
+                .addContainerGap(504, Short.MAX_VALUE))
         );
 
         DisplayPanel.add(Login, "login");
@@ -778,7 +761,7 @@ public class Home extends javax.swing.JFrame {
                 .addComponent(submitBtn)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton2)
-                .addContainerGap(159, Short.MAX_VALUE))
+                .addContainerGap(201, Short.MAX_VALUE))
         );
 
         DisplayPanel.add(Register, "register");
@@ -805,7 +788,7 @@ public class Home extends javax.swing.JFrame {
         name5.setText("IIB | 2h17min | Action, Drama, Sci-Fi | 3 March 2017");
 
         name6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        name6.setText("Description: ......");
+        name6.setText("Description: ");
 
         name7.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         name7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -840,8 +823,21 @@ public class Home extends javax.swing.JFrame {
             .addGroup(seatPlaneLayout.createSequentialGroup()
                 .addGap(78, 78, 78)
                 .addComponent(jLabel6)
-                .addContainerGap(104, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        description.setBackground(new java.awt.Color(255, 255, 255));
+        description.setLayout(new java.awt.CardLayout());
+        description.initiate("default");
+
+        director.setLayout(new java.awt.CardLayout());
+        director.initiate("default");
+
+        writers.setLayout(new java.awt.CardLayout());
+        writers.initiate("default");
+
+        stars.setLayout(new java.awt.CardLayout());
+        stars.initiate("default");
 
         javax.swing.GroupLayout MovieDetailLayout = new javax.swing.GroupLayout(MovieDetail);
         MovieDetail.setLayout(MovieDetailLayout);
@@ -860,20 +856,27 @@ public class Home extends javax.swing.JFrame {
                                 .addComponent(image, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(30, 30, 30)
                                 .addGroup(MovieDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(MovieDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(name1)
-                                        .addComponent(name3)
-                                        .addComponent(name4)
-                                        .addComponent(name5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(name6, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(name2)))
-                            .addComponent(name7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 616, Short.MAX_VALUE)
+                                    .addComponent(name5, javax.swing.GroupLayout.PREFERRED_SIZE, 421, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(name2)
+                                    .addGroup(MovieDetailLayout.createSequentialGroup()
+                                        .addGroup(MovieDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(name1)
+                                            .addComponent(name6)
+                                            .addComponent(name3)
+                                            .addComponent(name4))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(MovieDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(description, javax.swing.GroupLayout.DEFAULT_SIZE, 297, Short.MAX_VALUE)
+                                            .addComponent(director, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(writers, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(stars, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                            .addComponent(name7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, MovieDetailLayout.createSequentialGroup()
                                 .addComponent(name8)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(choice1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addComponent(seatPlane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(61, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         MovieDetailLayout.setVerticalGroup(
             MovieDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -885,15 +888,23 @@ public class Home extends javax.swing.JFrame {
                         .addComponent(name2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(name5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(name6, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(24, 24, 24)
-                        .addComponent(name1)
+                        .addGap(13, 13, 13)
+                        .addGroup(MovieDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(name6, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(description, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(22, 22, 22)
+                        .addGroup(MovieDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(name1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(director, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(name3)
+                        .addGroup(MovieDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(writers, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(name3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(name4)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(MovieDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(name4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(stars, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addGap(18, 18, 18)
                 .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(MovieDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1288,7 +1299,7 @@ public class Home extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 538, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 542, Short.MAX_VALUE)
                 .addGap(39, 39, 39))
         );
 
@@ -1347,7 +1358,7 @@ public class Home extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(159, Short.MAX_VALUE))
+                .addContainerGap(172, Short.MAX_VALUE))
         );
 
         DisplayPanel.add(Purchase, "purchase");
@@ -1362,7 +1373,7 @@ public class Home extends javax.swing.JFrame {
         );
         aboutUsPanelLayout.setVerticalGroup(
             aboutUsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 654, Short.MAX_VALUE)
+            .addGap(0, 652, Short.MAX_VALUE)
         );
 
         DisplayPanel.add(aboutUsPanel, "aboutUs");
@@ -1455,7 +1466,7 @@ public class Home extends javax.swing.JFrame {
                 .addComponent(bookingBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(aboutUs, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(422, Short.MAX_VALUE))
+                .addContainerGap(428, Short.MAX_VALUE))
         );
 
         menu.add(homeMemu, "homeMenu");
@@ -1541,7 +1552,7 @@ public class Home extends javax.swing.JFrame {
                 .addComponent(bookingBtn3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(62, 62, 62)
                 .addComponent(aboutUs1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(368, Short.MAX_VALUE))
+                .addContainerGap(372, Short.MAX_VALUE))
         );
 
         menu.add(adminPanel, "AdminPanel");
@@ -1762,6 +1773,8 @@ public class Home extends javax.swing.JFrame {
         System.out.print("result:" +result);
         if(result.equals("Admin"))
         {
+            this.permission = true;
+            updatePermission(permission);
             updatePanel(DisplayPanel, "index");
             updatePanel(menu, "AdminPanel");
             updatePanel(rightBar, "user");
@@ -1779,6 +1792,12 @@ public class Home extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_loginEnterBtnMouseClicked
 
+    private void updatePermission(boolean p){
+        description.setPermission(p);
+        writers.setPermission(p);
+        stars.setPermission(p);
+        director.setPermission(p);
+    }
     private void registerBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_registerBtnMouseClicked
         // TODO add your handling code here:
         updatePanel(DisplayPanel, "register");
@@ -1819,9 +1838,12 @@ public class Home extends javax.swing.JFrame {
 
     private void logoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutMouseClicked
         // TODO add your handling code here:
+        permission = false;
+        updatePermission(permission);
         updatePanel(DisplayPanel, "index");
         updatePanel(menu, "homeMenu");
         updatePanel(rightBar, "login");
+        
     }//GEN-LAST:event_logoutMouseClicked
 
     private void logoutMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutMouseEntered
@@ -1866,13 +1888,14 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel bookingBtn2;
     private javax.swing.JLabel bookingBtn3;
     private java.awt.Choice choice1;
+    private view.EditableJLabel description;
+    private view.EditableJLabel director;
     private javax.swing.JLabel firMonLabel;
     private javax.swing.JPanel header;
     private javax.swing.JLabel homeButton;
     private javax.swing.JLabel homeButton1;
     private view.GradientPanel homeMemu;
     private javax.swing.JLabel image;
-    private view.IndexPanel indexPanel;
     public javax.swing.JButton jButton2;
     public javax.swing.JButton jButton3;
     private javax.swing.JCheckBox jCheckBox1;
@@ -1948,6 +1971,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel secMonLabel;
     private javax.swing.JPanel sortField;
     private javax.swing.JPanel sortField1;
+    private view.EditableJLabel stars;
     private javax.swing.JLabel submitBtn;
     private javax.swing.JLabel thrMonLabel;
     private javax.swing.JLabel title;
@@ -1956,10 +1980,16 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JPanel user;
     private javax.swing.JTextField username;
     private javax.swing.JLabel warningLabel;
+    private view.EditableJLabel writers;
     private javax.swing.JLabel yearLabel;
     // End of variables declaration//GEN-END:variables
    
     //customie variable declaration
     private int year;
     private String curMon, firMon, secMon, thrMon;
+
+    
+interface ValueChangedListener {
+	public void valueChanged(String value, JComponent source);
+}
 }

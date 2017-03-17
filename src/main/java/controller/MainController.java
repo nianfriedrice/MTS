@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author lenovo
+ * @author Sisi R
  */
 public class MainController {
     public Home myhome;
