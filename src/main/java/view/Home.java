@@ -46,6 +46,9 @@ public class Home extends javax.swing.JFrame {
         return null;
     }
     
+    protected void goToMovie(Movie m){
+        updatePanel(DisplayPanel, "movieDetail");
+    }
    
     /**
      * This method is called from within the constructor to initialize the form.
@@ -77,6 +80,7 @@ public class Home extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
+        upComing = new view.IndexPanel();
         Login = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -430,6 +434,23 @@ public class Home extends javax.swing.JFrame {
         );
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel4.setLayout(new javax.swing.OverlayLayout(jPanel4));
+
+        upComing.setHome(this);
+        upComing.setMovies(mc.getUpcoming());
+
+        javax.swing.GroupLayout upComingLayout = new javax.swing.GroupLayout(upComing);
+        upComing.setLayout(upComingLayout);
+        upComingLayout.setHorizontalGroup(
+            upComingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        upComingLayout.setVerticalGroup(
+            upComingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        jPanel4.add(upComing);
 
         javax.swing.GroupLayout IndexLayout = new javax.swing.GroupLayout(Index);
         Index.setLayout(IndexLayout);
@@ -450,10 +471,10 @@ public class Home extends javax.swing.JFrame {
                 .addComponent(OnNowLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(upcomingLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(upcomingLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -2169,6 +2190,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel submitBtn;
     private javax.swing.JLabel thrMonLabel;
     private javax.swing.JLabel title;
+    private view.IndexPanel upComing;
     private javax.swing.JScrollPane upcoming;
     private javax.swing.JLabel upcomingLabel;
     private javax.swing.JPanel user;
