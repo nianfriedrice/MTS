@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author lenovo
+ * @author Sisi R
  */
 public class MainController {
     public Home myhome;
@@ -84,5 +84,9 @@ public class MainController {
             return "0";
         }
         }
+    
+    public void updateMovie(String description, String director, String language, String starring){
+        //implementation
+    }
             
 }
