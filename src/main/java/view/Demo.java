@@ -14,6 +14,7 @@ public class Demo extends JFrame {
 		
 		// Create the EditableJLabel
 		EditableJLabel title = new EditableJLabel("Meow", true);
+                title.initiate("default");
 		
 		title.setPreferredSize(new Dimension(150,24));
 

@@ -84,5 +84,9 @@ public class MainController {
             return "0";
         }
         }
+    
+    public void updateMovie(String description, String director, String language, String starring){
+        //implementation
+    }
             
 }

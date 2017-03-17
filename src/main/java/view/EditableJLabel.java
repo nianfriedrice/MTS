@@ -20,7 +20,7 @@ import javax.swing.JTextField;
 /**
  * Create a JPanel with a CardLayout which switches to another JPanel on hover
  * 
- * @author James McMinn
+ * @author James McMinns
  * 
  */
 public class EditableJLabel extends JPanel {
@@ -129,7 +129,6 @@ public class EditableJLabel extends JPanel {
 		//System.out.println("Hover status: " + hover);
 		if (hover){
                     //System.out.println("Hi there!!!!!");
-                    this.label.setText("Entered");
                     cl.show(this, "HOVER");
                 }
 			
