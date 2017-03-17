@@ -520,7 +520,7 @@
               <SubComponents>
                 <Container class="view.IndexPanel" name="upComing">
                   <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="upComing.setHome(this);&#xa;upComing.setMovies(mc.getUpcoming());"/>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="upComing.setHome(this);&#xa;upComing.setMovies(mc.getUpcoming());&#xa;upComing.setMainController(mc);"/>
                   </AuxValues>
 
                   <Layout>

@@ -10,6 +10,7 @@ import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.util.*;
+import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.UIManager;
 import model.Movie;
@@ -21,6 +22,7 @@ import model.Movie;
 public class Home extends javax.swing.JFrame {
     MainController mc;
     public boolean permission = false;
+    
     /**
      * Creates new form Home
      */
@@ -45,8 +47,14 @@ public class Home extends javax.swing.JFrame {
     private ArrayList<model.Movie> getMovies(){
         return null;
     }
+       
+    
+    protected void updateDetail(Movie m){
+        movieName.setText(m.getName());
+    }
     
     protected void goToMovie(Movie m){
+        updateDetail(m);
         updatePanel(DisplayPanel, "movieDetail");
     }
    
@@ -438,6 +446,7 @@ public class Home extends javax.swing.JFrame {
 
         upComing.setHome(this);
         upComing.setMovies(mc.getUpcoming());
+        upComing.setMainController(mc);
 
         javax.swing.GroupLayout upComingLayout = new javax.swing.GroupLayout(upComing);
         upComing.setLayout(upComingLayout);
