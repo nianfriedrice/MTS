@@ -10,20 +10,24 @@ import java.util.ArrayList;
 public class Movie {
     private int movieId = 0;
     private String name = "";
+    private String imageUrl = "";
     private String description = "";
+    private String language = "";
     private boolean if3D = false;
     private int length = 0;
-    private int category = -1;
+    private String category = "";
     private String director = "";
     private String starring = "";
     private String releaseDate = "";
     private String offDate = "";
     private float score = 0;
 
-    public Movie(String name, String description, boolean if3D, int length, int category, String director, String starring, String releaseDate, String offDate) {
+    public Movie(String name, String imageUrl, String description, String language, boolean if3D, int length, String category, String director, String starring, String releaseDate, String offDate) {
         setId();
         this.name = name;
+        this.imageUrl = imageUrl;
         this.description = description;
+        this.language = language;
         this.if3D = if3D;
         this.length = length;
         this.category = category;
@@ -33,10 +37,12 @@ public class Movie {
         this.offDate = offDate;
     }
 
-    public Movie(int movieId, String name, String description, boolean if3D, int length, int category, String director, String starring, String releaseDate, String offDate, float score) {
+    public Movie(int movieId, String name, String imageUrl, String description, String language, boolean if3D, int length, String category, String director, String starring, String releaseDate, String offDate, float score) {
         this.movieId = movieId;
         this.name = name;
+        this.imageUrl = imageUrl;
         this.description = description;
+        this.language = language;
         this.if3D = if3D;
         this.length = length;
         this.category = category;
@@ -73,8 +79,16 @@ public class Movie {
         return name;
     }
 
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
     public String getDescription() {
         return description;
+    }
+
+    public String getLanguage() {
+        return language;
     }
 
     public boolean isIf3D() {
@@ -85,7 +99,7 @@ public class Movie {
         return length;
     }
 
-    public int getCategory() {
+    public String getCategory() {
         return category;
     }
 
@@ -107,9 +121,5 @@ public class Movie {
 
     public float getScore() {
         return score;
-    }
-
-    public void setScore(float score) {
-        this.score = score;
     }
 }
