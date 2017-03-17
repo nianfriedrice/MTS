@@ -11,6 +11,7 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.util.*;
 import javax.swing.JComponent;
+import javax.swing.JFrame;
 import javax.swing.UIManager;
 import model.Movie;
 
@@ -26,6 +27,7 @@ public class Home extends javax.swing.JFrame {
      */
     public Home(MainController mc) {
         this.mc = mc;
+       // setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setMon();
         initComponents();
     }
@@ -42,8 +44,8 @@ public class Home extends javax.swing.JFrame {
         thrMon = monName[curM +2];
     }
     
-    private ArrayList<model.Movie> getMovies(){
-        return null;
+    protected void goToMovie(Movie m){
+        updatePanel(DisplayPanel, "movieDetail");
     }
     
    
@@ -77,6 +79,7 @@ public class Home extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
+        upComingPanel = new view.IndexPanel();
         Login = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -172,7 +175,6 @@ public class Home extends javax.swing.JFrame {
         schedulePanel = new javax.swing.JPanel();
         jSeparator1 = new javax.swing.JSeparator();
         jTable2 = new javax.swing.JTable();
-        jXDatePicker1 = new org.jdesktop.swingx.JXDatePicker();
         jLabel7 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         menu = new view.GradientPanel();
@@ -430,6 +432,23 @@ public class Home extends javax.swing.JFrame {
         );
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel4.setLayout(new javax.swing.OverlayLayout(jPanel4));
+
+        upComingPanel.setHome(this);
+        upComingPanel.setMovies(mc.getUpcoming());
+
+        javax.swing.GroupLayout upComingPanelLayout = new javax.swing.GroupLayout(upComingPanel);
+        upComingPanel.setLayout(upComingPanelLayout);
+        upComingPanelLayout.setHorizontalGroup(
+            upComingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        upComingPanelLayout.setVerticalGroup(
+            upComingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        jPanel4.add(upComingPanel);
 
         javax.swing.GroupLayout IndexLayout = new javax.swing.GroupLayout(Index);
         Index.setLayout(IndexLayout);
@@ -450,10 +469,10 @@ public class Home extends javax.swing.JFrame {
                 .addComponent(OnNowLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(upcomingLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -1471,9 +1490,7 @@ public class Home extends javax.swing.JFrame {
                                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(schedulePanelLayout.createSequentialGroup()
                                 .addGap(16, 16, 16)
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jXDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jLabel3)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(schedulePanelLayout.createSequentialGroup()
@@ -1488,12 +1505,10 @@ public class Home extends javax.swing.JFrame {
                 .addGap(4, 4, 4)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 6, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(schedulePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jXDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addGap(32, 32, 32)
+                .addComponent(jLabel3)
+                .addGap(35, 35, 35)
                 .addComponent(jTable2, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 299, Short.MAX_VALUE))
+                .addGap(0, 305, Short.MAX_VALUE))
         );
 
         DisplayPanel.add(schedulePanel, "aboutUs");
@@ -2135,7 +2150,6 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
-    private org.jdesktop.swingx.JXDatePicker jXDatePicker1;
     private view.EditableJLabel language;
     private javax.swing.JPanel login;
     private javax.swing.JLabel loginBtn;
@@ -2169,6 +2183,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel submitBtn;
     private javax.swing.JLabel thrMonLabel;
     private javax.swing.JLabel title;
+    private view.IndexPanel upComingPanel;
     private javax.swing.JScrollPane upcoming;
     private javax.swing.JLabel upcomingLabel;
     private javax.swing.JPanel user;

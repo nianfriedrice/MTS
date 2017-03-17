@@ -9,6 +9,7 @@ import model.Movie;
 import model.User;
 import view.Home;
 import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -21,8 +22,9 @@ public class MainController {
     
     public MainController(){
          /* Create and display the form */
-        myhome = new Home(this);
         dbc = new DatabaseConnector();
+        getMovies();
+        myhome = new Home(this);
         myhome .setVisible(true);
 }
     
@@ -57,14 +59,22 @@ public class MainController {
         });
     }
     
-    public ArrayList<Movie> getOnShowMovies(){
-        return null;
+    private ArrayList<Movie> movies;
+    
+    public void getMovies(){
+        movies = dbc.findAllMovie();
     }
     
-    public ArrayList<Movie> getUpcomingMovies(){
-        return null;
+    public List<Movie> getOnShow(){
+        return movies.subList(0, 3);
     }
-
+    
+    public List<Movie> getUpcoming(){
+        movies.get(0).setImageUrl("https://img1.od-cdn.com/ImageType-400/2508-1/41D/577/75/%7B41D57775-571B-4EFB-8253-11C536575CC3%7DImg400.jpg");
+        movies.get(1).setImageUrl("http://moviemaza24.com/wp-content/uploads/2017/03/G7F3619-300x400.jpg");
+        movies.get(2).setImageUrl("https://img1.od-cdn.com/ImageType-400/2508-1/41D/577/75/%7B41D57775-571B-4EFB-8253-11C536575CC3%7DImg400.jpg");
+        return movies.subList(0, 0 + 3);
+    }
     public String login(String text, char[] pwd) {
         String password = new String(pwd);
         User user;

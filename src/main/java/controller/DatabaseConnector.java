@@ -511,6 +511,7 @@ public class DatabaseConnector {
                 System.out.println("Movie list not found!");
             }
             while (resultSet.next()) {
+                System.out.println("Found movie with id: " + resultSet.getInt(1));
                 movieList.add(new Movie(resultSet.getInt(1), resultSet.getString(2),
                         resultSet.getString(3), resultSet.getString(4), resultSet.getString(5),
                         resultSet.getBoolean(6), resultSet.getInt(7), resultSet.getString(8),
@@ -539,6 +540,7 @@ public class DatabaseConnector {
                 System.out.println("Movie list not found!");
             }
             while (resultSet.next()) {
+                System.out.println("Found movie with id: " + resultSet.getInt(1));
                 movieList.add(new Movie(resultSet.getInt(1), resultSet.getString(2),
                         resultSet.getString(3), resultSet.getString(4), resultSet.getString(5),
                         resultSet.getBoolean(6), resultSet.getInt(7), resultSet.getString(8),
