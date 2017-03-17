@@ -85,6 +85,31 @@ public class DatabaseConnector {
         close();
     }
 
+    public ArrayList<User> findAllUser() {
+        ArrayList<User> userList = new ArrayList<>();
+        connect();
+        try {
+            Statement statement = connection.createStatement();
+            String sqlStr = "SELECT * FROM USER";
+            ResultSet resultSet = statement.executeQuery(sqlStr);
+            if (resultSet == null) {
+                System.out.println("User list not found!");
+            }
+            while (resultSet.next()) {
+                userList.add(new User(resultSet.getInt(1), resultSet.getString(2),
+                        resultSet.getString(3), resultSet.getString(4),
+                        resultSet.getString(5), resultSet.getInt(6), resultSet.getInt(7)));
+            }
+            resultSet.close();
+            statement.close();
+        } catch (SQLException e) {
+            System.out.println("Find all user failed!");
+            e.printStackTrace();
+        }
+        close();
+        return userList;
+    }
+
     public User findUser(String username) {
         User foundUser = null;
         connect();
@@ -159,6 +184,30 @@ public class DatabaseConnector {
             return;
         }
         close();
+    }
+
+    public ArrayList<Cinema> findAllCinema() {
+        ArrayList<Cinema> cinemaList = new ArrayList<>();
+        connect();
+        try {
+            Statement statement = connection.createStatement();
+            String sqlStr = "SELECT * FROM CINEMA";
+            ResultSet resultSet = statement.executeQuery(sqlStr);
+            if (resultSet == null) {
+                System.out.println("Cinema list not found!");
+            }
+            while (resultSet.next()) {
+                cinemaList.add(new Cinema(resultSet.getInt(1), resultSet.getString(2),
+                        resultSet.getInt(3), resultSet.getString(4), resultSet.getInt(5)));
+            }
+            resultSet.close();
+            statement.close();
+        } catch (SQLException e) {
+            System.out.println("Find all cinema failed!");
+            e.printStackTrace();
+        }
+        close();
+        return cinemaList;
     }
 
     public Cinema findCinema(String name) {
@@ -249,6 +298,30 @@ public class DatabaseConnector {
             return;
         }
         close();
+    }
+
+    public ArrayList<House> findAllHouse() {
+        ArrayList<House> houseList = new ArrayList<>();
+        connect();
+        try {
+            Statement statement = connection.createStatement();
+            String sqlStr = "SELECT * FROM HOUSE";
+            ResultSet resultSet = statement.executeQuery(sqlStr);
+            if (resultSet == null) {
+                System.out.println("House list not found!");
+            }
+            while (resultSet.next()) {
+                houseList.add(new House(resultSet.getInt(1), resultSet.getString(2),
+                        resultSet.getInt(3), resultSet.getInt(4)));
+            }
+            resultSet.close();
+            statement.close();
+        } catch (SQLException e) {
+            System.out.println("Find all house failed!");
+            e.printStackTrace();
+        }
+        close();
+        return houseList;
     }
 
     public House findHouse(String name, int cinemaId) {
@@ -404,10 +477,12 @@ public class DatabaseConnector {
             String sqlStr = "INSERT INTO MOVIE VALUES (" +
                     movie.getMovieId() + ", " +
                     "'" + movie.getName() + "', " +
+                    "'" + movie.getImageUrl() + "', " +
                     "'" + movie.getDescription() + "', " +
+                    "'" + movie.getLanguage() + "', " +
                     movie.isIf3D() + ", " +
                     movie.getLength() + ", " +
-                    movie.getCategory() + ", " +
+                    "'" + movie.getCategory() + "', " +
                     "'" + movie.getDirector() + "', " +
                     "'" + movie.getStarring() + "', " +
                     "str_to_date('" + movie.getReleaseDate() + "', '%d-%m-%Y'), " +
@@ -425,6 +500,61 @@ public class DatabaseConnector {
         close();
     }
 
+    public ArrayList<Movie> findAllMovie() {
+        ArrayList<Movie> movieList = new ArrayList<>();
+        connect();
+        try {
+            Statement statement = connection.createStatement();
+            String sqlStr = "SELECT * FROM MOVIE";
+            ResultSet resultSet = statement.executeQuery(sqlStr);
+            if (resultSet == null) {
+                System.out.println("Movie list not found!");
+            }
+            while (resultSet.next()) {
+                movieList.add(new Movie(resultSet.getInt(1), resultSet.getString(2),
+                        resultSet.getString(3), resultSet.getString(4), resultSet.getString(5),
+                        resultSet.getBoolean(6), resultSet.getInt(7), resultSet.getString(8),
+                        resultSet.getString(9), resultSet.getString(10), resultSet.getString(11),
+                        resultSet.getString(12), resultSet.getFloat(13)));
+            }
+            resultSet.close();
+            statement.close();
+        } catch (SQLException e) {
+            System.out.println("Find all movie failed!");
+            e.printStackTrace();
+        }
+        close();
+        return movieList;
+    }
+
+    public ArrayList<Movie> findFutureMovie(String date) {
+        ArrayList<Movie> movieList = new ArrayList<>();
+        connect();
+        try {
+            Statement statement = connection.createStatement();
+            String sqlStr = "SELECT * FROM MOVIE " +
+                    "WHERE OFF_DATE > str_to_date('" + date + "', '%d-%m-%Y')";
+            ResultSet resultSet = statement.executeQuery(sqlStr);
+            if (resultSet == null) {
+                System.out.println("Movie list not found!");
+            }
+            while (resultSet.next()) {
+                movieList.add(new Movie(resultSet.getInt(1), resultSet.getString(2),
+                        resultSet.getString(3), resultSet.getString(4), resultSet.getString(5),
+                        resultSet.getBoolean(6), resultSet.getInt(7), resultSet.getString(8),
+                        resultSet.getString(9), resultSet.getString(10), resultSet.getString(11),
+                        resultSet.getString(12), resultSet.getFloat(13)));
+            }
+            resultSet.close();
+            statement.close();
+        } catch (SQLException e) {
+            System.out.println("Find all movie failed!");
+            e.printStackTrace();
+        }
+        close();
+        return movieList;
+    }
+
     public Movie findMovie(String name, boolean if3D) {
         Movie foundMovie = null;
         connect();
@@ -436,9 +566,10 @@ public class DatabaseConnector {
             if (resultSet.next()) {
                 System.out.println("Found movie with id: " + resultSet.getInt(1));
                 foundMovie = new Movie(resultSet.getInt(1), resultSet.getString(2),
-                        resultSet.getString(3), resultSet.getBoolean(4), resultSet.getInt(5),
-                        resultSet.getInt(6), resultSet.getString(7), resultSet.getString(8),
-                        resultSet.getString(9), resultSet.getString(10), resultSet.getFloat(11));
+                        resultSet.getString(3), resultSet.getString(4), resultSet.getString(5),
+                        resultSet.getBoolean(6), resultSet.getInt(7), resultSet.getString(8),
+                        resultSet.getString(9), resultSet.getString(10), resultSet.getString(11),
+                        resultSet.getString(12), resultSet.getFloat(13));
             } else {
                 System.out.println("Movie not found!");
             }
@@ -487,10 +618,12 @@ public class DatabaseConnector {
                 Statement statement = connection.createStatement();
                 String sqlStr = "UPDATE MOVIE " +
                         "SET NAME = '" +
-                        name + "', DESCRIPTION = '" +
-                        description + "', IF_3D = " +
+                        name + "', IMAGE_URL = '" +
+                        imageUrl + "', DESCRIPTION = '" +
+                        description + "', LANGUAGE = '" +
+                        language + "', IF_3D = " +
                         if3D + ", LENGTH = " +
-                        length + ", CATEGORY = " +
+                        length + ", CATEGORY = '" +
                         category + "', DIRECTOR = '" +
                         director + "', STARRING = '" +
                         starring + "', RELEASE_DATE = '" +
@@ -537,7 +670,7 @@ public class DatabaseConnector {
                     schedule.getScheduleId() + ", " +
                     schedule.getMovieId() + ", " +
                     schedule.getHouseId() + ", '" +
-                    "str_to_date('" + schedule.getStartTime() + "', '%d-%m-%Y'), " +
+                    "str_to_date('" + schedule.getStartTime() + "', '%d-%m-%Y %H:%i:%s'), " +
                     schedule.getPrice() +
                     ")";
             statement.executeUpdate(sqlStr);
@@ -578,7 +711,7 @@ public class DatabaseConnector {
         try {
             Statement statement = connection.createStatement();
             String sqlStr = "SELECT * FROM SCHEDULE " +
-                    "WHERE NAME = '" + movieName + "' AND IF_3D = " + if3D + " AND START_TIME = str_to_date('" + startTime + "', '%d-%m-%Y')";
+                    "WHERE NAME = '" + movieName + "' AND IF_3D = " + if3D + " AND START_TIME = str_to_date('" + startTime + "', '%d-%m-%Y %H:%i:%s')";
             ResultSet resultSet = statement.executeQuery(sqlStr);
             if (resultSet.next()) {
                 System.out.println("Found schedule with id: " + resultSet.getInt(1));
@@ -633,7 +766,7 @@ public class DatabaseConnector {
                         "SET MOVIE_ID = " +
                         foundSchedule.getMovieId() + ", HOUSE_ID = " +
                         foundSchedule.getHouseId() + ", START_TIME = str_to_date('" +
-                        startTime + "', '%d-%m-%Y'), PRICE = " +
+                        startTime + "', '%d-%m-%Y %H:%i:%s'), PRICE = " +
                         price + " " +
                         "WHERE ID = " + foundSchedule.getScheduleId();
                 statement.executeUpdate(sqlStr);
