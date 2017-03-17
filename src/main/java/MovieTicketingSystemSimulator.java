@@ -1,5 +1,7 @@
 import controller.DatabaseConnector;
-import model.Seat;
+import model.Movie;
+
+import java.util.ArrayList;
 
 /**
  * Created by NortonWEI on 27/2/2017.
