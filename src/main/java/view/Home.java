@@ -860,6 +860,12 @@ public class Home extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 confirmBtnMouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                confirmBtnMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                confirmBtnMouseExited(evt);
+            }
         });
 
         javax.swing.GroupLayout MovieDetailLayout = new javax.swing.GroupLayout(MovieDetail);
@@ -1496,7 +1502,7 @@ public class Home extends javax.swing.JFrame {
                 .addGap(0, 299, Short.MAX_VALUE))
         );
 
-        DisplayPanel.add(schedulePanel, "aboutUs");
+        DisplayPanel.add(schedulePanel, "Schedule");
         schedulePanel.getAccessibleContext().setAccessibleName("Schedule");
 
         menu.setLayout(new java.awt.CardLayout());
@@ -2042,6 +2048,16 @@ public class Home extends javax.swing.JFrame {
         // TODO add your handling code here:
         menuBtnAction(aboutUs1, "Exit");
     }//GEN-LAST:event_aboutUs1MouseExited
+
+    private void confirmBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_confirmBtnMouseEntered
+        // TODO add your handling code here:
+        confirmBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_confirmBtnMouseEntered
+
+    private void confirmBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_confirmBtnMouseExited
+        // TODO add your handling code here:
+        confirmBtn.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+    }//GEN-LAST:event_confirmBtnMouseExited
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
