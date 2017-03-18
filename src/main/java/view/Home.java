@@ -184,9 +184,9 @@ public class Home extends javax.swing.JFrame {
         schedulePanel = new javax.swing.JPanel();
         jSeparator1 = new javax.swing.JSeparator();
         jTable2 = new javax.swing.JTable();
-        jXDatePicker1 = new org.jdesktop.swingx.JXDatePicker();
         jLabel7 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jXDatePicker2 = new org.jdesktop.swingx.JXDatePicker();
         menu = new view.GradientPanel();
         homeMemu = new view.GradientPanel();
         bookingBtn = new javax.swing.JLabel();
@@ -1502,8 +1502,8 @@ public class Home extends javax.swing.JFrame {
                             .addGroup(schedulePanelLayout.createSequentialGroup()
                                 .addGap(16, 16, 16)
                                 .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jXDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jXDatePicker2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(schedulePanelLayout.createSequentialGroup()
@@ -1519,14 +1519,14 @@ public class Home extends javax.swing.JFrame {
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 6, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(schedulePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jXDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
+                    .addComponent(jLabel3)
+                    .addComponent(jXDatePicker2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(32, 32, 32)
                 .addComponent(jTable2, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 299, Short.MAX_VALUE))
         );
 
-        DisplayPanel.add(schedulePanel, "aboutUs");
+        DisplayPanel.add(schedulePanel, "schedule");
         schedulePanel.getAccessibleContext().setAccessibleName("Schedule");
 
         menu.setLayout(new java.awt.CardLayout());
@@ -2165,7 +2165,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
-    private org.jdesktop.swingx.JXDatePicker jXDatePicker1;
+    private org.jdesktop.swingx.JXDatePicker jXDatePicker2;
     private view.EditableJLabel language;
     private javax.swing.JPanel login;
     private javax.swing.JLabel loginBtn;
