@@ -235,6 +235,31 @@ public class DatabaseConnector {
         return foundCinema;
     }
 
+    public Cinema findCinema(int houseId) {
+        Cinema foundCinema = null;
+        connect();
+        try {
+            Statement statement = connection.createStatement();
+            String sqlStr = "SELECT * FROM CINEMA, HOUSE " +
+                    "WHERE HOUSE.ID = " + houseId;
+            ResultSet resultSet = statement.executeQuery(sqlStr);
+            if (resultSet.next()) {
+                System.out.println("Found cinema with id: " + resultSet.getInt(1));
+                foundCinema = new Cinema(resultSet.getInt(1), resultSet.getString(2),
+                        resultSet.getInt(3), resultSet.getString(4), resultSet.getInt(5));
+            } else {
+                System.out.println("Cinema not found!");
+            }
+            resultSet.close();
+            statement.close();
+        } catch (SQLException e) {
+            System.out.println("Find cinema failed!");
+            e.printStackTrace();
+        }
+        close();
+        return foundCinema;
+    }
+    
     public void updateCinema(String name, int houseQuantity, String location, int tel) {
         Cinema foundCinema = findCinema(name);
         connect();
@@ -325,6 +350,31 @@ public class DatabaseConnector {
         return houseList;
     }
 
+    public House findHouse(int houseID) {
+        House foundHouse = null;
+        connect();
+        try {
+            Statement statement = connection.createStatement();
+            String sqlStr = "SELECT * FROM HOUSE " +
+                    "WHERE ID = " + houseID;
+            ResultSet resultSet = statement.executeQuery(sqlStr);
+            if (resultSet.next()) {
+                System.out.println("Found house with id: " + resultSet.getInt(1));
+                foundHouse = new House(resultSet.getInt(1), resultSet.getString(2),
+                        resultSet.getInt(3), resultSet.getInt(4), resultSet.getString(5));
+            } else {
+                System.out.println("House not found!");
+            }
+            resultSet.close();
+            statement.close();
+        } catch (SQLException e) {
+            System.out.println("Find house failed!");
+            e.printStackTrace();
+        }
+        close();
+        return foundHouse;
+    }    
+    
     public House findHouse(String name, int cinemaId) {
         House foundHouse = null;
         connect();
@@ -634,11 +684,12 @@ public class DatabaseConnector {
 
     public ArrayList<Schedule> findSchedules(String movieName, boolean if3D) {
         ArrayList<Schedule> foundSchedules = new ArrayList<Schedule>();
+        
         connect();
         try {
             Statement statement = connection.createStatement();
-            String sqlStr = "SELECT * FROM SCHEDULE " +
-                    "WHERE NAME = '" + movieName + "' AND IF_3D = " + if3D;
+            String sqlStr = "SELECT * FROM SCHEDULE, MOVIE " +
+                    "WHERE MOVIE.NAME = '" + movieName + "' AND IF_3D = " + if3D;
             ResultSet resultSet = statement.executeQuery(sqlStr);
             if (resultSet == null) {
                 System.out.println("Schedule not found!");

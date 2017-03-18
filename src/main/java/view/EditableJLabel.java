@@ -18,12 +18,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-/**
- * Create a JPanel with a CardLayout which switches to another JPanel on hover
- * 
- * @author James McMinns
- * 
- */
 public class EditableJLabel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
@@ -31,16 +25,8 @@ public class EditableJLabel extends JPanel {
 	private JTextField textField;
 	private LinkedList<ValueChangedListener> listeners = new LinkedList<ValueChangedListener>();
         
-        private boolean permission = false; //only Master has a permission
-
-	/**
-	 * Create the new panel
-	 * 
-	 * @param startText
-	 *            The starting text
-	 */
-            public EditableJLabel(){}
-        
+        private boolean permission = false; 
+               
             public void initiate(String startText){
                 // Create the listener and the layout
                CardLayout layout = new CardLayout(0, 0);
@@ -88,31 +74,15 @@ public class EditableJLabel extends JPanel {
             //System.out.println("EditableJLable.setPermission: " + permission);
         }
 
-    /**
-     * Set the text of the component
-     * 
-     * @param text
-     *            The text to start with
-     */
     public void setText(String text) {
                     this.label.setText(text);
                     this.textField.setText(text);
     }
 
-    /**
-     * Get the text from the label
-     * 
-     * @return The text from the label
-     */
     public String getText() {
             return this.label.getText();
     }
 
-    /**
-     * Get the text field
-     * 
-     * @return the text field component
-     */
     public JTextField getTextField() {
             return textField;
     }
@@ -126,13 +96,6 @@ public class EditableJLabel extends JPanel {
             return label;
     }
 
-    /**
-     * Set the hover state of the Panel
-     * 
-     * @param hover
-     *            True will set the state to hovering and show the input box.
-     *            False will show the label.
-     */
     public void setHoverState(boolean hover) {
             CardLayout cl = (CardLayout) (this.getLayout());
             //System.out.println("Hover status: " + hover);
@@ -144,11 +107,6 @@ public class EditableJLabel extends JPanel {
                 cl.show(this, "NORMAL");
     }
 
-    /**
-     * Add a value changed listener to this EditableJLabel
-     * 
-     * @param l
-     */
     public void addValueChangedListener(ValueChangedListener l) {
             this.listeners.add(l);
     }
@@ -160,26 +118,17 @@ public class EditableJLabel extends JPanel {
 
             boolean locked = false;
             String oldValue;
-
-            /**
-             * Lock to the text field while we have focus
-             */
+            
             @Override
             public void focusGained(FocusEvent arg0) {
                     locked = true;
                     oldValue = textField.getText();
             }
 
-            /**
-             * Release the lock so that we can go back to a JLabel
-             */
             public void release() {
                     this.locked = false;
             }
 
-            /**
-             * Check for mouse over
-             */
             @Override
             public void mouseEntered(MouseEvent e) {
                 //System.out.println("EditableJLable.mouseEntered: " + permission);
@@ -188,19 +137,12 @@ public class EditableJLabel extends JPanel {
                 }
             }
 
-            /**
-             * Check for the mouse exiting and set the sate back to normal if
-             * possible
-             */
             @Override
             public void mouseExited(MouseEvent e) {
                 if (!locked)
                         setHoverState(false);
             }
 
-            /**
-             * Update the text when focus is lost and release the lock
-             */
             @Override
             public void focusLost(FocusEvent e) {
                     setText(textField.getText());
@@ -211,10 +153,6 @@ public class EditableJLabel extends JPanel {
                     mouseExited(null);
             }
 
-            /**
-             * Check for key presses. We're only interested in Enter (save the value
-             * of the field) and Escape (reset the field to its previous value)
-             */
             @Override
             public void keyTyped(KeyEvent e) {
                     if (e.getKeyChar() == KeyEvent.VK_ENTER) {
@@ -231,9 +169,6 @@ public class EditableJLabel extends JPanel {
                     }
             }
 
-            /*
-             * We don't need anything below this point in the Listener Class
-             */
             @Override
             public void mousePressed(MouseEvent e) {
             }
@@ -258,13 +193,6 @@ public class EditableJLabel extends JPanel {
 
 }
 
-/**
- * A listener for the EditableJLabel. Called when the value of the JLabel is
- * updated.
- * 
- * @author James McMinn
- * 
- */
 interface ValueChangedListener {
 	public void valueChanged(String value, JComponent source);
 }

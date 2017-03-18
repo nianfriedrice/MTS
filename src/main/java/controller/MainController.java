@@ -40,6 +40,7 @@ public class MainController {
     private List<Movie> onShowMovies;
     private List<Movie> upComingMovies;
     HashMap<String, ImageIcon> imgs = new HashMap<>();
+    HashMap<Integer, String> houseCinema = new HashMap<>(); //map houseID cinemaName
     int width  = 195;
     int height = 260;
     
@@ -72,6 +73,23 @@ public class MainController {
         return icon;
     }
     
+    public String getCinemaName(int houseID){
+        if (houseCinema.containsKey(houseID))
+            return houseCinema.get(houseID);
+        String cinema = dbc.findCinema(houseID).getName();
+        System.out.println(houseID + " " + cinema);
+        houseCinema.put(houseID, cinema);
+        return cinema;
+    }
+    
+    public DatabaseConnector getDBC(){
+        return dbc;
+    }    
+    public String[] getCinema(String[] houseID){
+        String[] cinemaName = new String[houseID.length];
+        return cinemaName;
+    }
+   
    
     public static void main(String args[]) {
 
