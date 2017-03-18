@@ -13,8 +13,8 @@ public class Demo extends JFrame {
 		Container content = getContentPane();
 		
 		// Create the EditableJLabel
-		EditableJLabel title = new EditableJLabel("Meow", true);
-                title.initiate("default");
+		EditableJLabel title = new EditableJLabel();
+                                    title.initiate("default");
 		
 		title.setPreferredSize(new Dimension(150,24));
 
