@@ -1068,29 +1068,25 @@
                               <Component id="image" min="-2" pref="206" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="name5" alignment="0" min="-2" pref="421" max="-2" attributes="0"/>
                                   <Group type="102" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="name1" min="-2" max="-2" attributes="0"/>
-                                          <Component id="name6" min="-2" max="-2" attributes="0"/>
-                                          <Component id="name3" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="name4" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="name5" alignment="0" min="-2" pref="421" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="name1" min="-2" max="-2" attributes="0"/>
+                                              <Component id="name6" min="-2" max="-2" attributes="0"/>
+                                              <Component id="name3" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="name4" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          </Group>
                                       </Group>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="description" pref="297" max="32767" attributes="0"/>
-                                          <Component id="director" max="32767" attributes="0"/>
-                                          <Component id="language" max="32767" attributes="0"/>
-                                          <Component id="starring" max="32767" attributes="0"/>
-                                      </Group>
+                                      <EmptySpace max="32767" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="movieName" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace pref="184" max="32767" attributes="0"/>
                                       <Component id="confirmBtn" min="-2" pref="100" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <EmptySpace max="-2" attributes="0"/>
                           </Group>
                           <Component id="name7" alignment="0" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
@@ -1119,25 +1115,13 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="name5" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="name6" min="-2" pref="56" max="-2" attributes="0"/>
-                                  <Component id="description" min="-2" pref="104" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="name1" max="32767" attributes="0"/>
-                                  <Component id="director" max="32767" attributes="0"/>
-                              </Group>
+                              <Component id="name6" min="-2" pref="56" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
+                              <Component id="name1" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="language" max="32767" attributes="0"/>
-                                  <Component id="name3" max="32767" attributes="0"/>
-                              </Group>
+                              <Component id="name3" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="name4" max="32767" attributes="0"/>
-                                  <Component id="starring" max="32767" attributes="0"/>
-                              </Group>
+                              <Component id="name4" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
@@ -1288,43 +1272,6 @@
                   </Properties>
                 </Component>
               </SubComponents>
-            </Container>
-            <Container class="view.EditableJLabel" name="description">
-              <Properties>
-                <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="new java.awt.Color(255, 255, 255)" type="code"/>
-                </Property>
-              </Properties>
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new view.EditableJLabel(&quot;default&quot;, false)"/>
-                <AuxValue name="JavaCodeGenerator_LayoutCodePre" type="java.lang.String" value="description.initiate(&quot;default&quot;);"/>
-              </AuxValues>
-
-              <Layout class="org.netbeans.modules.form.compat2.layouts.DesignCardLayout"/>
-            </Container>
-            <Container class="view.EditableJLabel" name="director">
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new view.EditableJLabel(&quot;default&quot;, false)"/>
-                <AuxValue name="JavaCodeGenerator_LayoutCodePre" type="java.lang.String" value="director.initiate(&quot;default&quot;);"/>
-              </AuxValues>
-
-              <Layout class="org.netbeans.modules.form.compat2.layouts.DesignCardLayout"/>
-            </Container>
-            <Container class="view.EditableJLabel" name="language">
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new view.EditableJLabel(&quot;default&quot;, false)"/>
-                <AuxValue name="JavaCodeGenerator_LayoutCodePre" type="java.lang.String" value="language.initiate(&quot;default&quot;);"/>
-              </AuxValues>
-
-              <Layout class="org.netbeans.modules.form.compat2.layouts.DesignCardLayout"/>
-            </Container>
-            <Container class="view.EditableJLabel" name="starring">
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new view.EditableJLabel(&quot;default&quot;, false)"/>
-                <AuxValue name="JavaCodeGenerator_LayoutCodePre" type="java.lang.String" value="starring.initiate(&quot;default&quot;);"/>
-              </AuxValues>
-
-              <Layout class="org.netbeans.modules.form.compat2.layouts.DesignCardLayout"/>
             </Container>
             <Component class="javax.swing.JLabel" name="confirmBtn">
               <Properties>
