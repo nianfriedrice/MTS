@@ -707,6 +707,31 @@ public class DatabaseConnector {
         close();
         return foundSchedules;
     }
+    
+    public ArrayList<Schedule> findSchedulesByDate(String date) {
+        
+        ArrayList<Schedule> foundSchedules = new ArrayList<Schedule>();
+        //Implementation
+        if(date.equals("20-03-2017")){
+            foundSchedules.add(new Schedule(01, 01, 01,
+                        "20-03-2017", 75));
+            foundSchedules.add(new Schedule(02, 02, 02,
+                            "20-03-2017", 75));
+            foundSchedules.add(new Schedule(04, 04, 04,
+                            "20-03-2017", 75));
+        }
+        
+        else if(date.equals("21-03-2017")){
+            foundSchedules.add(new Schedule(01, 01, 01,
+                        "21-03-2017", 75));
+            foundSchedules.add(new Schedule(02, 20, 02,
+                            "21-03-2017", 75));
+            foundSchedules.add(new Schedule(04, 25, 77,
+                            "21-03-2017", 120));
+        }
+         
+        return foundSchedules;
+    }
 
     public void updateSchedule(String movieName, boolean if3D, String houseName, String startTime, float price) {
         Schedule foundSchedule = findSchedule(movieName, if3D, startTime);

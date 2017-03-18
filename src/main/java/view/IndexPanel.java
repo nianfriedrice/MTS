@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package view;
+import controller.MainController;
 import java.awt.Color;
 import java.awt.Event;
 import java.awt.FontMetrics;
@@ -28,13 +29,14 @@ import javax.imageio.ImageIO;
  */
 public class IndexPanel extends JPanel{
     Home home = null;
+    MainController mc = null;
     List<Movie> movies;
     int width  = 195;
     int height = 260;
     int margin = 32;
     int x = margin;
     int y = 0;
-    HashMap<String, ImageIcon> imgs = new HashMap<>();
+    HashMap<String, ImageIcon> imgs;
 
         
     public IndexPanel(){
@@ -51,26 +53,10 @@ public class IndexPanel extends JPanel{
         movies = m;
     }
     
-    private ImageIcon getImageIcon(String url){
-        if (imgs.containsKey(url))
-            return imgs.get(url);
-
-        BufferedImage img = null;
-        try {
-            System.out.println("Loading img from: " + url);
-            img = ImageIO.read(new URL(url));           
-         } catch (Exception ex) {
-            Logger.getLogger(IndexPanel.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        if (img == null){
-            //add default image           
-        }
-        Image image = img.getScaledInstance(width, height, Image.SCALE_SMOOTH);
-        ImageIcon icon = new ImageIcon(image);
-        imgs.put(url, icon);
-        return icon;
+    public void setMainController(MainController myMC){
+        mc = myMC;
     }
-    
+        
     //teting only
     @Override
     protected void paintComponent(Graphics g){
@@ -115,7 +101,7 @@ public class IndexPanel extends JPanel{
     //png
     private void testDrawMovie(Movie m, int curX, int curY){
         JLabel imgLabel = new JLabel();
-        imgLabel.setIcon(getImageIcon(m.getImageUrl())); 
+        imgLabel.setIcon(mc.getImageIcon(m.getImageUrl())); 
         imgLabel.setBounds(curX, curY, width, height);
         JPanel cover = createCover(m);
         cover.setBounds(curX, curY, width, height);

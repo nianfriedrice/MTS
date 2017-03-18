@@ -5,11 +5,21 @@
  */
 package controller;
 
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.net.URL;
 import model.Movie;
 import model.User;
 import view.Home;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import model.Schedule;
+import view.IndexPanel;
 
 
 /**
@@ -19,6 +29,9 @@ import java.util.List;
 public class MainController {
     public Home myhome;
     public DatabaseConnector dbc;
+    HashMap<String, ImageIcon> imgs = new HashMap<>();
+    int width  = 195;
+    int height = 260;
     
      public MainController(){
          /* Create and display the form */
@@ -28,6 +41,25 @@ public class MainController {
         myhome = new Home(this);
         myhome .setVisible(true);
 }
+    public ImageIcon getImageIcon(String url){
+        if (imgs.containsKey(url))
+            return imgs.get(url);
+
+        BufferedImage img = null;
+        try {
+            System.out.println("Loading img from: " + url);
+            img = ImageIO.read(new URL(url));           
+         } catch (Exception ex) {
+            Logger.getLogger(IndexPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (img == null){
+            //add default image           
+        }
+        Image image = img.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+        ImageIcon icon = new ImageIcon(image);
+        imgs.put(url, icon);
+        return icon;
+    }
     
    
     public static void main(String args[]) {
@@ -83,6 +115,11 @@ public class MainController {
     
     public void updateMovie(String description, String director, String language, String starring){
         //implementation
+    }
+    
+    public List<Schedule> findSchedulesByDate (String Date)
+    {
+        return dbc.findSchedulesByDate(Date);
     }
             
 }
