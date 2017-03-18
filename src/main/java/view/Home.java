@@ -10,6 +10,7 @@ import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.util.*;
+import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.UIManager;
 import model.Movie;
@@ -21,6 +22,7 @@ import model.Movie;
 public class Home extends javax.swing.JFrame {
     MainController mc;
     public boolean permission = false;
+    
     /**
      * Creates new form Home
      */
@@ -45,7 +47,16 @@ public class Home extends javax.swing.JFrame {
     private ArrayList<model.Movie> getMovies(){
         return null;
     }
+       
     
+    protected void updateDetail(Movie m){
+        movieName.setText(m.getName());
+    }
+    
+    protected void goToMovie(Movie m){
+        updateDetail(m);
+        updatePanel(DisplayPanel, "movieDetail");
+    }
    
     /**
      * This method is called from within the constructor to initialize the form.
@@ -430,6 +441,7 @@ public class Home extends javax.swing.JFrame {
         );
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel4.setLayout(new javax.swing.OverlayLayout(jPanel4));
 
         javax.swing.GroupLayout IndexLayout = new javax.swing.GroupLayout(Index);
         Index.setLayout(IndexLayout);
@@ -450,10 +462,10 @@ public class Home extends javax.swing.JFrame {
                 .addComponent(OnNowLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(upcomingLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(upcomingLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
