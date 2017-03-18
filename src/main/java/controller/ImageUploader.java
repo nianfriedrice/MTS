@@ -1,3 +1,5 @@
+package controller;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -16,31 +18,33 @@ import org.apache.http.util.EntityUtils;
 /**
  * Created by NortonWEI on 19/3/2017.
  */
-public class UploadImage {
-    public static void main(String[] args) throws IOException {
-        HttpClient httpclient = new DefaultHttpClient();
-        httpclient.getParams().setParameter(CoreProtocolPNames.PROTOCOL_VERSION, HttpVersion.HTTP_1_1);
+public class ImageUploader {
 
-        HttpPost httppost = new HttpPost("http://101.78.175.101:20180/upload/upload.php");
-        File file = new File("/path/to/your/file");
+    public ImageUploader(String imagePath) throws IOException {
+        HttpClient httpClient = new DefaultHttpClient();
+        httpClient.getParams().setParameter(CoreProtocolPNames.PROTOCOL_VERSION, HttpVersion.HTTP_1_1);
+
+        HttpPost httpPost = new HttpPost("http://101.78.175.101:20180/upload/upload.php");
+        File file = new File(imagePath);
 
         MultipartEntity mpEntity = new MultipartEntity();
         ContentBody cbFile = new FileBody(file, "image/jpeg");
         mpEntity.addPart("imageFile", cbFile);
 
-        httppost.setEntity(mpEntity);
-        System.out.println("executing request " + httppost.getRequestLine());
-        HttpResponse response = httpclient.execute(httppost);
+        httpPost.setEntity(mpEntity);
+        System.out.println("executing request " + httpPost.getRequestLine());
+        HttpResponse response = httpClient.execute(httpPost);
         HttpEntity resEntity = response.getEntity();
 
         System.out.println(response.getStatusLine());
         if (resEntity != null) {
             System.out.println(EntityUtils.toString(resEntity));
         }
+
         if (resEntity != null) {
             resEntity.consumeContent();
         }
 
-        httpclient.getConnectionManager().shutdown();
+        httpClient.getConnectionManager().shutdown();
     }
 }
