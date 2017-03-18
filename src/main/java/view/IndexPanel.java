@@ -62,7 +62,7 @@ public class IndexPanel extends JPanel{
     protected void paintComponent(Graphics g){
         super.paintComponent(g);  
         for(int i = 0; i < movies.size(); i++)
-            testDrawMovie(movies.get(i), x +width * i + i* margin, y);
+            drawMovie(movies.get(i), x +width * i + i* margin, y);
     }
     
     private JPanel createCover(Movie m){
@@ -73,41 +73,34 @@ public class IndexPanel extends JPanel{
 
         //create movie info        
         JLabel title = new JLabel();
-        title.setFont(new java.awt.Font("Segoe UI", 0, 24)); 
+        title.setFont(new java.awt.Font("Segoe UI", 0, 20)); 
         title.setForeground(Color.WHITE);
-        title.setText(covertContent(m.getName(), title.getFontMetrics(title.getFont())));
+        title.setText(m.getName());
+//        title.setText(mc.covertContent(m.getName(), title.getFontMetrics(title.getFont())), width);
+        mc.resizeFont(title, width-5, 50);
         //add component
         cover.add(title);   
         return cover;
     }
     
-    private String covertContent(String s, FontMetrics fontMetrics){
-        StringBuilder builder = new StringBuilder("<html>");
-        char[] chars = s.toCharArray();
-        for (int i = 0, j = 1;; j++) {
-            if (fontMetrics.charsWidth(chars, i, j) < width-5) {
-                if (i + j < chars.length) continue;
-                builder.append(chars, i, j);
-                break;
-            }
-            builder.append(chars, i, j - 1).append("<br/>");
-            i = j - 1;
-            j = 1;
-        }
-        builder.append("</html>");
-        return builder.toString();   
+    private JLabel createScore(Movie m, int curX, int curY){
+        JLabel score = new JLabel(String.format("%.2f/5.0", m.getScore()));
+        score.setFont(new java.awt.Font("Segoe UI", 0, 15));
+        score.setForeground(Color.WHITE);
+        score.setBounds(curX+ width - 60 , curY+height-50, 60, 70);
+        return score;
     }
-    
+        
     //png
-    private void testDrawMovie(Movie m, int curX, int curY){
+    private void drawMovie(Movie m, int curX, int curY){
         JLabel imgLabel = new JLabel();
         imgLabel.setIcon(mc.getImageIcon(m.getImageUrl())); 
         imgLabel.setBounds(curX, curY, width, height);
         JPanel cover = createCover(m);
         cover.setBounds(curX, curY, width, height);
-              
+//        imgLabel.setVisible(false);
+        this.add(createScore(m, curX, curY));
         this.add(cover);
-
         this.add(imgLabel);
 
         imgLabel.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -129,23 +122,6 @@ public class IndexPanel extends JPanel{
         });
         
     }
-    
-    
-    //jpg
-    private void drawMovie(Graphics g, Movie m, int curX, int curY){
-        Image image = null;
-        try {
-            String url = m.getImageUrl();
-            System.out.println(url);
-            image = Toolkit.getDefaultToolkit().createImage(new URL(url));
-            //image = image.getScaledInstance(width, height, Image.SCALE_SMOOTH);
-            g.drawImage(image, curX, curY, this);
-         } catch (Exception ex) {
-            Logger.getLogger(IndexPanel.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        if (image == null){
-            //add default image           
-        }
-    }
+   
     
 }
