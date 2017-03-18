@@ -19,5 +19,6 @@ public class MovieTicketingSystemSimulator {
          int initSeatId = Seat.getInitSeatIdInDb();
          databaseConnector.createSeat(initSeatId, seats);
          */
+        databaseConnector.findSchedules("16-03-2017");
     }
 }

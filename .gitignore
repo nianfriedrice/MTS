@@ -1,2 +1,2 @@
 /dist/
-build/classes/view/Home$ValueChangedListener.class
+build/classes/view/*.class
