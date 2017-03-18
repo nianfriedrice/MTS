@@ -1,5 +1,5 @@
 import controller.DatabaseConnector;
-import model.Movie;
+import model.House;
 
 import java.util.ArrayList;
 
@@ -19,6 +19,5 @@ public class MovieTicketingSystemSimulator {
          int initSeatId = Seat.getInitSeatIdInDb();
          databaseConnector.createSeat(initSeatId, seats);
          */
-        databaseConnector.findSchedules("16-03-2017");
     }
 }
