@@ -29,14 +29,21 @@ import javax.imageio.ImageIO;
  */
 public class IndexPanel extends JPanel{
     Home home = null;
+<<<<<<< HEAD
     MainController mc = null;
+=======
+>>>>>>> refs/remotes/origin/rachel
     List<Movie> movies;
     int width  = 195;
     int height = 260;
     int margin = 32;
     int x = margin;
     int y = 0;
+<<<<<<< HEAD
     HashMap<String, ImageIcon> imgs;
+=======
+    HashMap<String, ImageIcon> imgs = new HashMap<>();
+>>>>>>> refs/remotes/origin/rachel
 
         
     public IndexPanel(){
@@ -53,10 +60,33 @@ public class IndexPanel extends JPanel{
         movies = m;
     }
     
+<<<<<<< HEAD
     public void setMainController(MainController myMC){
         mc = myMC;
     }
         
+=======
+    private ImageIcon getImageIcon(String url){
+        if (imgs.containsKey(url))
+            return imgs.get(url);
+
+        BufferedImage img = null;
+        try {
+            System.out.println("Loading img from: " + url);
+            img = ImageIO.read(new URL(url));           
+         } catch (Exception ex) {
+            Logger.getLogger(IndexPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (img == null){
+            //add default image           
+        }
+        Image image = img.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+        ImageIcon icon = new ImageIcon(image);
+        imgs.put(url, icon);
+        return icon;
+    }
+    
+>>>>>>> refs/remotes/origin/rachel
     //teting only
     @Override
     protected void paintComponent(Graphics g){
@@ -101,7 +131,11 @@ public class IndexPanel extends JPanel{
     //png
     private void testDrawMovie(Movie m, int curX, int curY){
         JLabel imgLabel = new JLabel();
+<<<<<<< HEAD
         imgLabel.setIcon(mc.getImageIcon(m.getImageUrl())); 
+=======
+        imgLabel.setIcon(getImageIcon(m.getImageUrl())); 
+>>>>>>> refs/remotes/origin/rachel
         imgLabel.setBounds(curX, curY, width, height);
         JPanel cover = createCover(m);
         cover.setBounds(curX, curY, width, height);
