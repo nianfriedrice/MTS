@@ -12,19 +12,22 @@ public class House {
     private String name = "";
     private int seatQuantity = -1;
     private int cinemaId = -1;
+    private String seatPlan = "";
 
-    public House(String name, int seatQuantity, int cinemaId) {
+    public House(String name, int seatQuantity, int cinemaId, String seatPlan) {
         setId();
         this.name = name;
         this.seatQuantity = seatQuantity;
         this.cinemaId = cinemaId;
+        this.seatPlan = seatPlan;
     }
 
-    public House(int houseId, String name, int seatQuantity, int cinemaId) {
+    public House(int houseId, String name, int seatQuantity, int cinemaId, String seatPlan) {
         this.houseId = houseId;
         this.name = name;
         this.seatQuantity = seatQuantity;
         this.cinemaId = cinemaId;
+        this.seatPlan = seatPlan;
     }
 
     private void setId() {
@@ -59,5 +62,9 @@ public class House {
 
     public int getCinemaId() {
         return cinemaId;
+    }
+
+    public String getSeatPlan() {
+        return seatPlan;
     }
 }

@@ -287,13 +287,14 @@ public class DatabaseConnector {
                     house.getHouseId() + ", " +
                     "'" + house.getName() + "', " +
                     house.getSeatQuantity() + ", " +
-                    house.getCinemaId() +
+                    house.getCinemaId() + ", '" +
+                    house.getSeatPlan() + "'" +
                     ")";
             statement.executeUpdate(sqlStr);
             statement.close();
             System.out.println("Added house with id: " + house.getHouseId());
         } catch (SQLException e) {
-            System.out.println("Create hosue failed!");
+            System.out.println("Create house failed!");
             e.printStackTrace();
             return;
         }
@@ -312,7 +313,7 @@ public class DatabaseConnector {
             }
             while (resultSet.next()) {
                 houseList.add(new House(resultSet.getInt(1), resultSet.getString(2),
-                        resultSet.getInt(3), resultSet.getInt(4)));
+                        resultSet.getInt(3), resultSet.getInt(4), resultSet.getString(5)));
             }
             resultSet.close();
             statement.close();
@@ -335,7 +336,7 @@ public class DatabaseConnector {
             if (resultSet.next()) {
                 System.out.println("Found house with id: " + resultSet.getInt(1));
                 foundHouse = new House(resultSet.getInt(1), resultSet.getString(2),
-                        resultSet.getInt(3), resultSet.getInt(4));
+                        resultSet.getInt(3), resultSet.getInt(4), resultSet.getString(5));
             } else {
                 System.out.println("House not found!");
             }
@@ -385,84 +386,6 @@ public class DatabaseConnector {
             System.out.println("Deleted house with id: " + foundHouse.getHouseId());
         } catch (SQLException e) {
             System.out.println("Delete house failed!");
-            e.printStackTrace();
-            return;
-        }
-        close();
-    }
-
-    /** Seat Operation
-     * @param seats*/
-    public void createSeat(int initSeatId, Seat[] seats) {
-        connect();
-        try {
-            Statement statement = connection.createStatement();
-            String sqlStr = "INSERT INTO SEAT VALUES ";
-            for (int i = 0; i < seats.length; i++) {
-                sqlStr += "(" +
-                        initSeatId + ", " +
-                        seats[i].getRowNo() + ", " +
-                        seats[i].getColumnNo() + ", " +
-                        seats[i].getHouseId() + ", " +
-                        seats[i].isIfOccupied() + ", " +
-                        "NULL" +
-                        "), ";
-                seats[i].setSeatId(initSeatId++);
-            }
-            sqlStr = sqlStr.substring(0, sqlStr.length()-2);
-            statement.executeUpdate(sqlStr);
-            System.out.println("Added seats");
-            statement.close();
-        } catch (SQLException e) {
-            System.out.println("Create seat failed!");
-            e.printStackTrace();
-            return;
-        }
-        close();
-    }
-
-    public Seat findSeat(int rowNo, int columnNo, int houseId) {
-        Seat foundSeat = null;
-        connect();
-        try {
-            Statement statement = connection.createStatement();
-            String sqlStr = "SELECT * FROM SEAT " +
-                    "WHERE ROW_NO = " + rowNo + " AND COLUMN_ID = " + columnNo + " AND HOUSE_ID = " + houseId;
-            ResultSet resultSet = statement.executeQuery(sqlStr);
-            if (resultSet.next()) {
-                System.out.println("Found seat with id: " + resultSet.getInt(1));
-                foundSeat = new Seat(resultSet.getInt(1), resultSet.getInt(2),
-                        resultSet.getInt(3), resultSet.getInt(4));
-            } else {
-                System.out.println("Seat not found!");
-            }
-            resultSet.close();
-            statement.close();
-        } catch (SQLException e) {
-            System.out.println("Find seat failed!");
-            e.printStackTrace();
-        }
-        close();
-        return foundSeat;
-    }
-
-    public void updateSeat(int rowNo, int columnNo, int houseId, boolean ifOccupied, int scheduleId) {
-        Seat foundSeat = findSeat(rowNo,columnNo,houseId);
-        connect();
-        try {
-            if (foundSeat != null) {
-                Statement statement = connection.createStatement();
-                String sqlStr = "UPDATE SEAT " +
-                        "SET IF_OCCUPIED = " +
-                        ifOccupied + ", SCHEDULE_ID = " +
-                        scheduleId + " " +
-                        "WHERE ID = " + foundSeat.getSeatId();
-                statement.executeUpdate(sqlStr);
-                statement.close();
-                System.out.println("Updated seat with id: " + foundSeat.getSeatId());
-            }
-        } catch (SQLException e) {
-            System.out.println("Update seat failed!");
             e.printStackTrace();
             return;
         }
@@ -813,7 +736,8 @@ public class DatabaseConnector {
                     ticket.getUserId() + ", " +
                     ticket.getScheduleId() + ", " +
                     ticket.getCategory() + ", " +
-                    ticket.getSeatId() +
+                    ticket.getSeatRow() + ", " +
+                    ticket.getSeatColumn() +
                     ")";
             statement.executeUpdate(sqlStr);
             statement.close();
@@ -826,21 +750,21 @@ public class DatabaseConnector {
         close();
     }
 
-    public Ticket findTicket(String username, Schedule schedule, int seatRowNo, int seatColumnNo) {
+    public Ticket findTicket(String username, Schedule schedule, int seatRow, int seatColumn) {
         int userId = findUser(username).getUserId();
         int scheduleId = schedule.getScheduleId();
-        int seatId = findSeat(seatRowNo, seatColumnNo, schedule.getHouseId()).getSeatId();
         Ticket foundTicket = null;
         connect();
         try {
             Statement statement = connection.createStatement();
             String sqlStr = "SELECT * FROM TICKET " +
-                    "WHERE USER_ID = " + userId + " AND SCHEDULE_ID = " + scheduleId + " AND SEAT_ID = " + seatId;
+                    "WHERE USER_ID = " + userId + " AND SCHEDULE_ID = " +
+                    scheduleId + " AND SEAT_ROW = " + seatRow + " AND SEAT_COLUMN = " + seatColumn;
             ResultSet resultSet = statement.executeQuery(sqlStr);
             if (resultSet.next()) {
                 System.out.println("Found ticket with id: " + resultSet.getInt(1));
                 foundTicket = new Ticket(resultSet.getInt(1), resultSet.getInt(2),
-                        resultSet.getInt(3), resultSet.getInt(4), resultSet.getInt(5));
+                        resultSet.getInt(3), resultSet.getInt(4), resultSet.getInt(5), resultSet.getInt(6));
             } else {
                 System.out.println("Ticket not found!");
             }
