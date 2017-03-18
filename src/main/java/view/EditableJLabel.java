@@ -31,7 +31,7 @@ public class EditableJLabel extends JPanel {
 	private JTextField textField;
 	private LinkedList<ValueChangedListener> listeners = new LinkedList<ValueChangedListener>();
         
-        private boolean permission; //only Master has a permission
+        private boolean permission = false; //only Master has a permission
 
 	/**
 	 * Create the new panel
@@ -40,16 +40,12 @@ public class EditableJLabel extends JPanel {
 	 *            The starting text
 	 */
             public EditableJLabel(){}
-            public EditableJLabel(String s, boolean p) {
-                super();
-                //System.out.println("EditableJLable.Constructor: " + permission);
-                this.permission = p;
-	}
         
             public void initiate(String startText){
                 // Create the listener and the layout
                CardLayout layout = new CardLayout(0, 0);
                this.setLayout(layout);
+               this.setBackground(Color.WHITE);
                EditableListener hl = new EditableListener();
 
                // Create the JPanel for the "normal" state
