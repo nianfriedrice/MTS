@@ -123,11 +123,7 @@ public class Movie {
         return score;
     }
     
-<<<<<<< HEAD
     public void setImageUrl(String url) {
-=======
-    public void setImageUrl(String url){
->>>>>>> refs/remotes/origin/rachel
         imageUrl = url;
     }
 }

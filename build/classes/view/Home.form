@@ -517,6 +517,26 @@
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
               </Properties>
+              <SubComponents>
+                <Container class="view.IndexPanel" name="upComing">
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="upComing.setHome(this);&#xa;upComing.setMovies(mc.getUpcoming());&#xa;upComing.setMainController(mc);"/>
+                  </AuxValues>
+
+                  <Layout>
+                    <DimensionLayout dim="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      </Group>
+                    </DimensionLayout>
+                    <DimensionLayout dim="1">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      </Group>
+                    </DimensionLayout>
+                  </Layout>
+                </Container>
+              </SubComponents>
               <LayoutCode>
                 <CodeStatement>
                   <CodeExpression id="1_jPanel4">
@@ -1093,25 +1113,29 @@
                               <Component id="image" min="-2" pref="206" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="name5" alignment="0" min="-2" pref="421" max="-2" attributes="0"/>
                                   <Group type="102" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="name5" alignment="0" min="-2" pref="421" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="name1" min="-2" max="-2" attributes="0"/>
-                                              <Component id="name6" min="-2" max="-2" attributes="0"/>
-                                              <Component id="name3" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="name4" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          </Group>
+                                          <Component id="name1" min="-2" max="-2" attributes="0"/>
+                                          <Component id="name6" min="-2" max="-2" attributes="0"/>
+                                          <Component id="name3" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="name4" alignment="0" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace max="32767" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                          <Component id="description" pref="297" max="32767" attributes="0"/>
+                                          <Component id="director" max="32767" attributes="0"/>
+                                          <Component id="language" max="32767" attributes="0"/>
+                                          <Component id="starring" max="32767" attributes="0"/>
+                                      </Group>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="movieName" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace pref="184" max="32767" attributes="0"/>
                                       <Component id="confirmBtn" min="-2" pref="100" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
                                   </Group>
                               </Group>
+                              <EmptySpace max="-2" attributes="0"/>
                           </Group>
                           <Component id="name7" alignment="0" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
@@ -1140,13 +1164,25 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="name5" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
-                              <Component id="name6" min="-2" pref="56" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
-                              <Component id="name1" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="name6" min="-2" pref="56" max="-2" attributes="0"/>
+                                  <Component id="description" min="-2" pref="104" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="name1" max="32767" attributes="0"/>
+                                  <Component id="director" max="32767" attributes="0"/>
+                              </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="name3" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="language" max="32767" attributes="0"/>
+                                  <Component id="name3" max="32767" attributes="0"/>
+                              </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="name4" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="name4" max="32767" attributes="0"/>
+                                  <Component id="starring" max="32767" attributes="0"/>
+                              </Group>
                           </Group>
                       </Group>
                       <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
@@ -1298,6 +1334,43 @@
                 </Component>
               </SubComponents>
             </Container>
+            <Container class="view.EditableJLabel" name="description">
+              <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="new java.awt.Color(255, 255, 255)" type="code"/>
+                </Property>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new view.EditableJLabel(&quot;default&quot;, false)"/>
+                <AuxValue name="JavaCodeGenerator_LayoutCodePre" type="java.lang.String" value="description.initiate(&quot;default&quot;);"/>
+              </AuxValues>
+
+              <Layout class="org.netbeans.modules.form.compat2.layouts.DesignCardLayout"/>
+            </Container>
+            <Container class="view.EditableJLabel" name="director">
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new view.EditableJLabel(&quot;default&quot;, false)"/>
+                <AuxValue name="JavaCodeGenerator_LayoutCodePre" type="java.lang.String" value="director.initiate(&quot;default&quot;);"/>
+              </AuxValues>
+
+              <Layout class="org.netbeans.modules.form.compat2.layouts.DesignCardLayout"/>
+            </Container>
+            <Container class="view.EditableJLabel" name="language">
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new view.EditableJLabel(&quot;default&quot;, false)"/>
+                <AuxValue name="JavaCodeGenerator_LayoutCodePre" type="java.lang.String" value="language.initiate(&quot;default&quot;);"/>
+              </AuxValues>
+
+              <Layout class="org.netbeans.modules.form.compat2.layouts.DesignCardLayout"/>
+            </Container>
+            <Container class="view.EditableJLabel" name="starring">
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new view.EditableJLabel(&quot;default&quot;, false)"/>
+                <AuxValue name="JavaCodeGenerator_LayoutCodePre" type="java.lang.String" value="starring.initiate(&quot;default&quot;);"/>
+              </AuxValues>
+
+              <Layout class="org.netbeans.modules.form.compat2.layouts.DesignCardLayout"/>
+            </Container>
             <Component class="javax.swing.JLabel" name="confirmBtn">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -1315,8 +1388,6 @@
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="confirmBtnMouseClicked"/>
-                <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="confirmBtnMouseEntered"/>
-                <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="confirmBtnMouseExited"/>
               </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="confirmBtn.setVisible(false);"/>
@@ -2184,7 +2255,7 @@
           </AccessibilityProperties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
-              <CardConstraints cardName="Schedule"/>
+              <CardConstraints cardName="aboutUs"/>
             </Constraint>
           </Constraints>
 
@@ -2199,7 +2270,7 @@
                           </Group>
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jLabel7" min="-2" pref="298" max="-2" attributes="0"/>
                                   </Group>
