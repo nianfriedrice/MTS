@@ -12,7 +12,8 @@ public class Ticket {
     private int userId = 0;
     private int scheduleId = 0;
     private int category = 0;
-    private int seatId = 0;
+    private int seatRow = 0;
+    private int seatColumn = 0;
 
     public Ticket(String username, String movieName, boolean if3D, String startTime, int seatRowNo, int seatColumnNo, int category) {
         setId();
@@ -21,15 +22,15 @@ public class Ticket {
         Schedule schedule = databaseConnector.findSchedule(movieName, if3D, startTime);
         this.scheduleId = schedule.getScheduleId();
         this.category = category;
-        this.seatId = databaseConnector.findSeat(seatRowNo, seatColumnNo, schedule.getHouseId()).getScheduleId();
     }
 
-    public Ticket(int ticketId, int userId, int scheduleId, int category, int seatId) {
+    public Ticket(int ticketId, int userId, int scheduleId, int category, int seatRow, int seatColumn) {
         this.ticketId = ticketId;
         this.userId = userId;
         this.scheduleId = scheduleId;
         this.category = category;
-        this.seatId = seatId;
+        this.seatRow = seatRow;
+        this.seatColumn = seatColumn;
     }
 
     private void setId() {
