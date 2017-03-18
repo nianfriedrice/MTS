@@ -9,11 +9,14 @@ import controller.MainController;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Cursor;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.UIManager;
+import javax.swing.table.DefaultTableModel;
 import model.Movie;
+import model.Schedule;
 
 /**
  *
@@ -183,10 +186,11 @@ public class Home extends javax.swing.JFrame {
         jLabel19 = new javax.swing.JLabel();
         schedulePanel = new javax.swing.JPanel();
         jSeparator1 = new javax.swing.JSeparator();
-        jTable2 = new javax.swing.JTable();
         jLabel7 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jXDatePicker2 = new org.jdesktop.swingx.JXDatePicker();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        scheduleTable = new javax.swing.JTable();
         menu = new view.GradientPanel();
         homeMemu = new view.GradientPanel();
         bookingBtn = new javax.swing.JLabel();
@@ -984,7 +988,6 @@ public class Home extends javax.swing.JFrame {
         allMovies.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         onShow.setBackground(new java.awt.Color(255, 255, 255));
-        onShow.setBorder(null);
         onShow.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         onShow.setMaximumSize(new java.awt.Dimension(800, 1000));
         onShow.setMinimumSize(new java.awt.Dimension(800, 600));
@@ -1125,7 +1128,6 @@ public class Home extends javax.swing.JFrame {
         allMovies.addTab("On Show", onShow);
 
         upcoming.setBackground(new java.awt.Color(255, 255, 255));
-        upcoming.setBorder(null);
         upcoming.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         upcoming.setMaximumSize(new java.awt.Dimension(800, 1000));
         upcoming.setMinimumSize(new java.awt.Dimension(800, 600));
@@ -1339,6 +1341,10 @@ public class Home extends javax.swing.JFrame {
         jTable1.setSelectionBackground(new java.awt.Color(255, 153, 153));
         jScrollPane1.setViewportView(jTable1);
         jTable1.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(4).setHeaderValue("");
+            jTable1.getColumnModel().getColumn(5).setHeaderValue("Price");
+        }
 
         javax.swing.GroupLayout BookingRecordLayout = new javax.swing.GroupLayout(BookingRecord);
         BookingRecord.setLayout(BookingRecordLayout);
@@ -1375,7 +1381,6 @@ public class Home extends javax.swing.JFrame {
         jTextArea1.setWrapStyleWord(true);
         jTextArea1.setEditable(false);
         jTextArea1.setFocusable(false);
-        jTextArea1.setBorder(null);
 
         javax.swing.GroupLayout aboutUsPanelLayout = new javax.swing.GroupLayout(aboutUsPanel);
         aboutUsPanel.setLayout(aboutUsPanelLayout);
@@ -1465,18 +1470,6 @@ public class Home extends javax.swing.JFrame {
 
         jSeparator1.setBackground(new java.awt.Color(241, 109, 122));
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-
         jLabel7.setBackground(new java.awt.Color(255, 255, 255));
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(241, 109, 122));
@@ -1485,15 +1478,55 @@ public class Home extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel3.setText("Select ShowDate:");
 
+        jXDatePicker2.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jXDatePicker2PropertyChange(evt);
+            }
+        });
+
+        scheduleTable.setBackground(new java.awt.Color(250, 241, 184));
+        scheduleTable.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        scheduleTable.setFillsViewportHeight(true);
+        scheduleTable.getTableHeader().setBackground(new Color(241,204,184));
+        scheduleTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Start Time", "Movie Id", "House Id", "Ticket Price", "Schedule ID", ""
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Object.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, true
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        scheduleTable.setGridColor(new java.awt.Color(200, 111, 103));
+        scheduleTable.setSelectionBackground(new java.awt.Color(255, 153, 153));
+        scheduleTable.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                scheduleTableFocusLost(evt);
+            }
+        });
+        jScrollPane2.setViewportView(scheduleTable);
+        scheduleTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+
         javax.swing.GroupLayout schedulePanelLayout = new javax.swing.GroupLayout(schedulePanel);
         schedulePanel.setLayout(schedulePanelLayout);
         schedulePanelLayout.setHorizontalGroup(
             schedulePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(schedulePanelLayout.createSequentialGroup()
                 .addGroup(schedulePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(schedulePanelLayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 705, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(schedulePanelLayout.createSequentialGroup()
                         .addGroup(schedulePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(schedulePanelLayout.createSequentialGroup()
@@ -1504,12 +1537,13 @@ public class Home extends javax.swing.JFrame {
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jXDatePicker2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, schedulePanelLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(schedulePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 694, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 705, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
-            .addGroup(schedulePanelLayout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(jTable2, javax.swing.GroupLayout.PREFERRED_SIZE, 589, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         schedulePanelLayout.setVerticalGroup(
             schedulePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1521,12 +1555,12 @@ public class Home extends javax.swing.JFrame {
                 .addGroup(schedulePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jXDatePicker2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32)
-                .addComponent(jTable2, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 299, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 532, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40))
         );
 
-        DisplayPanel.add(schedulePanel, "schedule");
+        DisplayPanel.add(schedulePanel, "Schedule");
         schedulePanel.getAccessibleContext().setAccessibleName("Schedule");
 
         menu.setLayout(new java.awt.CardLayout());
@@ -2043,7 +2077,7 @@ public class Home extends javax.swing.JFrame {
 
     private void confirmBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_confirmBtnMouseClicked
         // TODO add your handling code here:
-        //System.out.println(description.getText() + director.getText() + writers.getText() +  stars.getText());
+        System.out.println(description.getText() + director.getText() + language.getText() +  starring.getText());
         mc.updateMovie(description.getText(), director.getText(),language.getText(), starring.getText());
     }//GEN-LAST:event_confirmBtnMouseClicked
 
@@ -2072,6 +2106,36 @@ public class Home extends javax.swing.JFrame {
         // TODO add your handling code here:
         menuBtnAction(aboutUs1, "Exit");
     }//GEN-LAST:event_aboutUs1MouseExited
+
+    private void jXDatePicker2PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jXDatePicker2PropertyChange
+        // TODO add your handling code here:
+        if ("date".equals(evt.getPropertyName())) {
+            SimpleDateFormat formater = new SimpleDateFormat("dd-MM-yyyy");
+            String dateChosen = formater.format(jXDatePicker2.getDate());
+            System.out.println(" Date Chosen: " + dateChosen);
+            List<Schedule> results = mc.findSchedulesByDate(dateChosen);
+            
+            //update Schedule Table
+            DefaultTableModel model = (DefaultTableModel) scheduleTable.getModel();
+            model.setRowCount(0);
+            
+            for(Schedule s:results)
+            {
+                String starttime = s.getStartTime();
+                int movieid = s.getMovieId();
+                int houseid = s.getHouseId();
+                int scheduleid = s.getScheduleId();
+
+                Object[] row = { starttime, movieid, houseid, scheduleid };
+                model.addRow(row);
+            }
+           
+         }
+    }//GEN-LAST:event_jXDatePicker2PropertyChange
+
+    private void scheduleTableFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_scheduleTableFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_scheduleTableFocusLost
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -2150,6 +2214,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JPasswordField jPasswordField2;
     private javax.swing.JPasswordField jPasswordField3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
@@ -2157,7 +2222,6 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
@@ -2190,6 +2254,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JPanel rightBar;
     private javax.swing.JLabel scheduleBtn;
     private javax.swing.JPanel schedulePanel;
+    private javax.swing.JTable scheduleTable;
     private javax.swing.JTextField searchBar;
     private javax.swing.JPanel seatPlane;
     private javax.swing.JLabel secMonLabel;

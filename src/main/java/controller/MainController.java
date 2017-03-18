@@ -18,6 +18,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import model.Schedule;
 import view.IndexPanel;
 
 
@@ -114,6 +115,11 @@ public class MainController {
     
     public void updateMovie(String description, String director, String language, String starring){
         //implementation
+    }
+    
+    public List<Schedule> findSchedulesByDate (String Date)
+    {
+        return dbc.findSchedulesByDate(Date);
     }
             
 }
