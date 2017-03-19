@@ -76,6 +76,12 @@ public class Home extends javax.swing.JFrame {
         time.setText(String.valueOf(m.getLength()) + "min");
         releaseDate.setText(m.getReleaseDate());
         
+        schedulePanel.removeAll();
+        schedulePanel.revalidate();
+        schedulePanel.repaint();
+        sch3d.clear();
+        sch2d.clear();
+        
         //clear comboBox
         dateComboBox.removeAllItems();
         cinemaComboBox.removeAllItems();
@@ -1183,7 +1189,7 @@ public class Home extends javax.swing.JFrame {
         );
         schedulePlanLayout.setVerticalGroup(
             schedulePlanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 264, Short.MAX_VALUE)
+            .addGap(0, 295, Short.MAX_VALUE)
         );
 
         updateTime.setBackground(new java.awt.Color(255, 153, 153));
@@ -1227,8 +1233,8 @@ public class Home extends javax.swing.JFrame {
                     .addComponent(dateComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(updateTime))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(schedulePlan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addComponent(schedulePlan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         MovieDetail.add(purchasePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, 710, 360));
@@ -2122,6 +2128,8 @@ public class Home extends javax.swing.JFrame {
     private void updateTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateTimeActionPerformed
         // TODO add your handling code here:
         schedulePlan.removeAll();
+        schedulePlan.revalidate();
+        schedulePlan.repaint();
         String date = (String) dateComboBox.getSelectedItem();
         String cinema = (String) cinemaComboBox.getSelectedItem();
         String version = (String) versionComboBox.getSelectedItem();
@@ -2167,6 +2175,8 @@ public class Home extends javax.swing.JFrame {
     
     private void drawSeats(Schedule sch){
         schedulePlan.removeAll();
+        schedulePlan.revalidate();
+        schedulePlan.repaint();
         JLabel time = new JLabel(sch.getStartTime().substring(11, 16) + " V ");
         time.setFont(new java.awt.Font("Segoe UI", 1, 14)); 
         time.setForeground(new java.awt.Color(255, 102, 102));
@@ -2191,7 +2201,9 @@ public class Home extends javax.swing.JFrame {
     }
     
     private void drawSchedule(ArrayList<Schedule> sch){
-       schedulePlan.removeAll();
+        schedulePlan.removeAll();
+        schedulePlan.revalidate();
+        schedulePlan.repaint();
         int x = 5;
         int y = 5;
         int margin = 10;
