@@ -662,7 +662,8 @@ public class DatabaseConnector {
             Statement statement = connection.createStatement();
             String sqlStr = "SELECT * FROM SCHEDULE " +
                     "WHERE START_TIME > str_to_date('" + date + " 00:00:00',  '%d-%m-%Y %H:%i:%s') " +
-                    "AND START_TIME < str_to_date('" + date + " 23:59:59',  '%d-%m-%Y %H:%i:%s')";
+                    "AND START_TIME < str_to_date('" + date + " 23:59:59',  '%d-%m-%Y %H:%i:%s') " +
+                    "ORDER BY START_TIME ASC";
             ResultSet resultSet = statement.executeQuery(sqlStr);
             if (resultSet == null) {
                 System.out.println("Schedule not found!");
@@ -689,7 +690,8 @@ public class DatabaseConnector {
         try {
             Statement statement = connection.createStatement();
             String sqlStr = "SELECT * FROM SCHEDULE, MOVIE " +
-                    "WHERE MOVIE.NAME = '" + movieName + "' AND IF_3D = " + if3D;
+                    "WHERE MOVIE.NAME = '" + movieName + "' AND IF_3D = " + if3D + " AND SCHEDULE.MOVIE_ID = MOVIE.ID " + 
+                    "ORDER BY START_TIME ASC";
             ResultSet resultSet = statement.executeQuery(sqlStr);
             if (resultSet == null) {
                 System.out.println("Schedule not found!");
@@ -786,8 +788,8 @@ public class DatabaseConnector {
                     ticket.getTicketId() + ", " +
                     ticket.getUserId() + ", " +
                     ticket.getScheduleId() + ", " +
-                    ticket.getCategory() + ", " +
-                    ticket.getSeatRow() + ", " +
+                    ticket.getCategory() + ", '" +
+                    ticket.getSeatRow() + "', " +
                     ticket.getSeatColumn() +
                     ")";
             statement.executeUpdate(sqlStr);
@@ -800,8 +802,59 @@ public class DatabaseConnector {
         }
         close();
     }
+    
+    public ArrayList<Ticket> findAllTicket() {
+        ArrayList<Ticket> movieList = new ArrayList<>();
+        connect();
+        try {
+            Statement statement = connection.createStatement();
+            String sqlStr = "SELECT * FROM TICKET";
+            ResultSet resultSet = statement.executeQuery(sqlStr);
+            if (resultSet == null) {
+                System.out.println("Ticket list not found!");
+            }
+            while (resultSet.next()) {
+                movieList.add(new Ticket(resultSet.getInt(1), resultSet.getInt(2),
+                        resultSet.getInt(3), resultSet.getInt(4), resultSet.getString(5), resultSet.getInt(6)));
+            }
+            resultSet.close();
+            statement.close();
+        } catch (SQLException e) {
+            System.out.println("Find all ticket failed!");
+            e.printStackTrace();
+        }
+        close();
+        return movieList;
+    }
 
-    public Ticket findTicket(String username, Schedule schedule, int seatRow, int seatColumn) {
+    public Ticket findTicket(Schedule schedule, String seatRow, int seatColumn) {
+        int scheduleId = schedule.getScheduleId();
+        Ticket foundTicket = null;
+        connect();
+        try {
+            Statement statement = connection.createStatement();
+            String sqlStr = "SELECT * FROM TICKET " +
+                    "WHERE  SCHEDULE_ID = " +
+                    scheduleId + " AND SEAT_ROW = '" + seatRow + "' AND SEAT_COLUMN = " + seatColumn;
+            ResultSet resultSet = statement.executeQuery(sqlStr);
+            if (resultSet.next()) {
+                System.out.println("Found ticket with id: " + resultSet.getInt(1));
+                foundTicket = new Ticket(resultSet.getInt(1), resultSet.getInt(2),
+                        resultSet.getInt(3), resultSet.getInt(4), resultSet.getString(5), resultSet.getInt(6));
+            } else {
+                System.out.println("Ticket not found!");
+            }
+            resultSet.close();
+            statement.close();
+        } catch (SQLException e) {
+            System.out.println("Find ticket failed!");
+            e.printStackTrace();
+        }
+        close();
+        return foundTicket;
+    }    
+    
+    public Ticket findTicket(String username, Schedule schedule, String seatRow, int seatColumn) {
         int userId = findUser(username).getUserId();
         int scheduleId = schedule.getScheduleId();
         Ticket foundTicket = null;
@@ -810,12 +863,12 @@ public class DatabaseConnector {
             Statement statement = connection.createStatement();
             String sqlStr = "SELECT * FROM TICKET " +
                     "WHERE USER_ID = " + userId + " AND SCHEDULE_ID = " +
-                    scheduleId + " AND SEAT_ROW = " + seatRow + " AND SEAT_COLUMN = " + seatColumn;
+                    scheduleId + " AND SEAT_ROW = '" + seatRow + "' AND SEAT_COLUMN = " + seatColumn;
             ResultSet resultSet = statement.executeQuery(sqlStr);
             if (resultSet.next()) {
                 System.out.println("Found ticket with id: " + resultSet.getInt(1));
                 foundTicket = new Ticket(resultSet.getInt(1), resultSet.getInt(2),
-                        resultSet.getInt(3), resultSet.getInt(4), resultSet.getInt(5), resultSet.getInt(6));
+                        resultSet.getInt(3), resultSet.getInt(4), resultSet.getString(5), resultSet.getInt(6));
             } else {
                 System.out.println("Ticket not found!");
             }
@@ -829,7 +882,7 @@ public class DatabaseConnector {
         return foundTicket;
     }
 
-    public void deleteTicket(String username, Schedule schedule, int seatRowNo, int seatColumnNo) {
+    public void deleteTicket(String username, Schedule schedule, String seatRowNo, int seatColumnNo) {
         Ticket foundTicket = findTicket(username, schedule, seatRowNo, seatColumnNo);
         connect();
         try {

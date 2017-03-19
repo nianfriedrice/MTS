@@ -12,10 +12,12 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import model.Schedule;
+import model.Ticket;
 
 /**
  *
@@ -23,6 +25,7 @@ import model.Schedule;
  */
 public class SeatPlan extends JPanel{
     MainController mc;
+    DatabaseConnector dbc = null;
     int width;
     int height;
     int margin = 5;
@@ -32,14 +35,15 @@ public class SeatPlan extends JPanel{
     JPanel screenPanel;
     JLabel screenLabel;
     Schedule schedule;
+   ArrayList<Ticket> tickets = null;
     Boolean mode; //True: editable; Flase: uneditable;
     //Color setting
     Color backC = new Color(255,240,255);
     Color foreC = new Color(241,104,122);
-    Color soldC = new Color(244, 66, 66);
-    Color selectedC = new Color(61, 39, 104);
-    Color availableC = new Color(86, 86, 86);
-    Color wheelC = new Color(0,255,0);
+    Color soldC = new Color(86, 86, 86);
+    Color selectedC = new Color(0, 255, 0);
+    Color availableC = new Color(244, 66, 66);
+    Color wheelC = new Color(255,255,0);
     
     public SeatPlan(){
     }
@@ -114,17 +118,76 @@ public class SeatPlan extends JPanel{
                 
     }
     
-    private void drawSeats(Graphics2D g){
-        DatabaseConnector dbc = mc.getDBC();
-        String seatPlan = dbc.findHouse(schedule.getHouseId()).getSeatPlan();
-//        System.out.println(seatPlan);
-        int row = 0;
-        int col = 0;
-        int seatNum = 1;
-        String[] rows = seatPlan.split("\n");
-        for (int i = 0; i < rows.length; i++){
-            System.out.println(rows[i]);
+    private void drawRect(Graphics2D g, Color c, int x, int y){
+        g.setColor(c);
+        g.fillRect(x, y, box, box);
+    }
+    
+    private Boolean hasSold(String row, int col){
+        if (dbc == null) {
+            dbc = mc.getDBC();
         }
+        if (tickets == null)
+            tickets = dbc.findAllTicket();
+        for (Ticket t: tickets){
+            if (t.getScheduleId() == schedule.getScheduleId() && t.getSeatRow().equals(row) && t.getSeatColumn() == col)
+                return true;
+        }
+        return false;
+    }
+    private void drawSeats(Graphics2D g){
+        if (dbc == null) {
+            dbc = mc.getDBC();
+        }
+        String seatPlan = dbc.findHouse(schedule.getHouseId()).getSeatPlan();
+
+//        System.out.println(seatPlan);
+        
+        String[] rows = seatPlan.split("\n");
+        int startX = 5;
+        int startY = 30;
+        for (int i = 0; i < rows.length; i++){
+            String line = rows[i];
+            System.out.println(line);
+            String head = line.substring(0, 1);
+            if (!head.equals("/")){
+                drawLineHead(head, startX, startY+ i * (box+margin));
+                int col = 0;
+                int seatNum = 1;
+                while (col < line.length()){
+                    char c = line.charAt(col);
+                    switch(c){
+                        case '0':
+                            break;
+                        case '1':
+                            if (hasSold(head, seatNum)){
+                                drawRect(g, soldC, startX+ (box+margin)* (col+1), startY+ i * (box+margin));
+                            } else {
+                                drawRect(g,availableC , startX+ (box+margin)* (col+1), startY+ i * (box+margin));
+                            }
+                            seatNum++;
+                            break;
+                        case '2':
+                            if (hasSold(head, seatNum)){
+                                drawRect(g, soldC, startX+ (box+margin)* (col+1), startY+ i * (box+margin));
+                            } else {
+                                drawRect(g,wheelC , startX+ (box+margin)* (col+1), startY+ i * (box+margin));
+                            }
+                            break;
+                    }
+                    col++;
+                }
+            }
+        }
+    }
+    
+    private void drawLineHead(String c, int x, int y){
+        JLabel head = new JLabel(c);
+        Font labelFont = new java.awt.Font("Segoe UI", 1, 10);
+        head.setFont(labelFont);
+        head.setForeground(Color.BLACK);
+        head.setBounds(x, y, box, box);
+        this.add(head);
     }
     
     private Boolean checkSetting(){
