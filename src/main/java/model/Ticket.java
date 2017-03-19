@@ -16,14 +16,12 @@ public class Ticket {
 
     private int seatColumn = 0;
 
-    public Ticket(String username, String movieName, boolean if3D, String startTime, String seatRow, int seatColumn, int category) {
+    public Ticket(int uid, int sid, int ticketType, String row, int seatColumn) {
         setId();
-        DatabaseConnector databaseConnector = new DatabaseConnector();
-        this.userId = databaseConnector.findUser(username).getUserId();
-        Schedule schedule = databaseConnector.findSchedule(movieName, if3D, startTime);
-        this.scheduleId = schedule.getScheduleId();
-        this.category = category;
-        this.seatRow = seatRow;
+        this.userId = uid;
+        this.scheduleId = sid;
+        this.category = ticketType;
+        this.seatRow = row;
         this.seatColumn = seatColumn;
     }
 

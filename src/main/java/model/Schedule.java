@@ -13,6 +13,8 @@ public class Schedule {
     private int houseId = 0;
     private String startTime = "";
     private float price = 0;
+    private String houseName = "";
+    private String movieName = "";
 
     public Schedule(String movieName, boolean if3D, String houseName, String startTime, float price) {
         setId();
@@ -21,14 +23,18 @@ public class Schedule {
         this.houseId = databaseConnector.findHouse(houseName, movieId).getHouseId();
         this.startTime = startTime;
         this.price = price;
+        this.movieName = movieName;
+        this.houseName = houseName;
     }
 
-    public Schedule(int scheduleId, int movieId, int houseId, String startTime, float price) {
+    public Schedule(int scheduleId, int movieId, String movieName, int houseId, String houseName, String startTime, float price) {
         this.scheduleId = scheduleId;
         this.movieId = movieId;
         this.houseId = houseId;
         this.startTime = startTime;
         this.price = price;
+        this.houseName = houseName;
+        this.movieName = movieName;
     }
 
     private void setId() {
@@ -67,5 +73,13 @@ public class Schedule {
 
     public float getPrice() {
         return price;
+    }
+    
+    public String getHouseName() {
+        return houseName;
+    }
+    
+    public String getMovieName() {
+        return movieName;
     }
 }

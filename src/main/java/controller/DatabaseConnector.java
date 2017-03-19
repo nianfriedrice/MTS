@@ -44,7 +44,7 @@ public class DatabaseConnector {
         connect();
         try {
             Statement statement = connection.createStatement();
-            String sqlStr = "SELECT ID FROM " + databaseName;
+            String sqlStr = "SELECT ID FROM " + databaseName + " ORDER BY ID ASC";
             ResultSet resultSet = statement.executeQuery(sqlStr);
 
             while (resultSet.next()) {
@@ -635,13 +635,14 @@ public class DatabaseConnector {
         connect();
         try {
             Statement statement = connection.createStatement();
-            String sqlStr = "SELECT * FROM SCHEDULE " +
-                    "WHERE NAME = '" + movieName + "' AND IF_3D = " + if3D + " AND START_TIME = str_to_date('" + startTime + "', '%d-%m-%Y %H:%i:%s')";
+            String sqlStr = "SELECT * FROM SCHEDULE, MOVIE, HOUSE " +
+                    "WHERE MOVIE.NAME = '" + movieName + "' AND IF_3D = " + if3D + " AND START_TIME = str_to_date('" + startTime + "', '%d-%m-%Y %H:%i:%s') " +
+                    "AND SCHEDULE.MOVIE_ID = MOVIE.ID AND SCHEDULE.HOUSE_ID = HOUSE.ID";
             ResultSet resultSet = statement.executeQuery(sqlStr);
             if (resultSet.next()) {
                 System.out.println("Found schedule with id: " + resultSet.getInt(1));
-                foundSchedule = new Schedule(resultSet.getInt(1), resultSet.getInt(2), resultSet.getInt(3),
-                        resultSet.getString(4), resultSet.getFloat(5));
+                foundSchedule = new Schedule(resultSet.getInt(1), resultSet.getInt(2), resultSet.getString(7), resultSet.getInt(3),
+                        resultSet.getString(20), resultSet.getString(4), resultSet.getFloat(5));
             } else {
                 System.out.println("Schedule not found!");
             }
@@ -660,9 +661,10 @@ public class DatabaseConnector {
         connect();
         try {
             Statement statement = connection.createStatement();
-            String sqlStr = "SELECT * FROM SCHEDULE " +
+            String sqlStr = "SELECT * FROM SCHEDULE, MOVIE, HOUSE " +
                     "WHERE START_TIME > str_to_date('" + date + " 00:00:00',  '%d-%m-%Y %H:%i:%s') " +
                     "AND START_TIME < str_to_date('" + date + " 23:59:59',  '%d-%m-%Y %H:%i:%s') " +
+                    "AND SCHEDULE.MOVIE_ID = MOVIE.ID AND SCHEDULE.HOUSE_ID = HOUSE.ID " +
                     "ORDER BY START_TIME ASC";
             ResultSet resultSet = statement.executeQuery(sqlStr);
             if (resultSet == null) {
@@ -670,8 +672,8 @@ public class DatabaseConnector {
             }
             while (resultSet.next()) {
                 System.out.println("Found schedules");
-                foundSchedules.add(new Schedule(resultSet.getInt(1), resultSet.getInt(2), resultSet.getInt(3),
-                        resultSet.getString(4), resultSet.getFloat(5)));
+                foundSchedules.add(new Schedule(resultSet.getInt(1), resultSet.getInt(2), resultSet.getString(7), resultSet.getInt(3),
+                        resultSet.getString(20), resultSet.getString(4), resultSet.getFloat(5)));
             }
             resultSet.close();
             statement.close();
@@ -689,8 +691,8 @@ public class DatabaseConnector {
         connect();
         try {
             Statement statement = connection.createStatement();
-            String sqlStr = "SELECT * FROM SCHEDULE, MOVIE " +
-                    "WHERE MOVIE.NAME = '" + movieName + "' AND IF_3D = " + if3D + " AND SCHEDULE.MOVIE_ID = MOVIE.ID " + 
+            String sqlStr = "SELECT * FROM SCHEDULE, MOVIE, HOUSE " +
+                    "WHERE MOVIE.NAME = '" + movieName + "' AND IF_3D = " + if3D + " AND SCHEDULE.MOVIE_ID = MOVIE.ID AND SCHEDULE.HOUSE_ID = HOUSE.ID " + 
                     "ORDER BY START_TIME ASC";
             ResultSet resultSet = statement.executeQuery(sqlStr);
             if (resultSet == null) {
@@ -698,8 +700,8 @@ public class DatabaseConnector {
             }
             while (resultSet.next()) {
                 System.out.println("Found schedules.");
-                foundSchedules.add(new Schedule(resultSet.getInt(1), resultSet.getInt(2), resultSet.getInt(3),
-                        resultSet.getString(4), resultSet.getFloat(5)));
+                foundSchedules.add(new Schedule(resultSet.getInt(1), resultSet.getInt(2), resultSet.getString(7), resultSet.getInt(3),
+                        resultSet.getString(20), resultSet.getString(4), resultSet.getFloat(5)));
             }
             resultSet.close();
             statement.close();
@@ -711,32 +713,13 @@ public class DatabaseConnector {
         return foundSchedules;
     }
     
-    public ArrayList<Schedule> findSchedulesByDate(String date) {
+    public void updateSchedule(Schedule s) {
+        String movieName = s.getMovieName();
+        boolean if3D = false;
+        String houseName = s.getHouseName();
+        String startTime = s.getStartTime();
+        float price = s.getPrice();
         
-        ArrayList<Schedule> foundSchedules = new ArrayList<Schedule>();
-        //Implementation
-        if(date.equals("20-03-2017")){
-            foundSchedules.add(new Schedule(01, 01, 01,
-                        "20-03-2017", 75));
-            foundSchedules.add(new Schedule(02, 02, 02,
-                            "20-03-2017", 75));
-            foundSchedules.add(new Schedule(04, 04, 04,
-                            "20-03-2017", 75));
-        }
-        
-        else if(date.equals("21-03-2017")){
-            foundSchedules.add(new Schedule(01, 01, 01,
-                        "21-03-2017", 75));
-            foundSchedules.add(new Schedule(02, 20, 02,
-                            "21-03-2017", 75));
-            foundSchedules.add(new Schedule(04, 25, 77,
-                            "21-03-2017", 120));
-        }
-         
-        return foundSchedules;
-    }
-
-    public void updateSchedule(String movieName, boolean if3D, String houseName, String startTime, float price) {
         Schedule foundSchedule = findSchedule(movieName, if3D, startTime);
         connect();
         try {

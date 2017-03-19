@@ -26,7 +26,9 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import model.Cinema;
 import model.Schedule;
+import model.Ticket;
 import view.IndexPanel;
 
 
@@ -41,6 +43,7 @@ public class MainController {
     private List<Movie> upComingMovies;
     HashMap<String, ImageIcon> imgs = new HashMap<>();
     HashMap<Integer, String> houseCinema = new HashMap<>(); //map houseID cinemaName
+    HashMap<Integer, Movie> movieMap = new HashMap<>(); //movieID to Movie
     int width  = 195;
     int height = 260;
     
@@ -52,6 +55,23 @@ public class MainController {
         myhome = new Home(this);
         myhome .setVisible(true);
 }
+     
+     public void findMovie(String name){
+         Movie found = null;
+         for(Movie m:this.onShowMovies){
+             if (name.equals(m.getName())){
+                 found = m;
+                 break;
+             }
+         }
+         for(Movie m: this.upComingMovies){
+             if (name.equals(m.getName())){
+                 found = m;
+                 break;
+             }
+         }
+         myhome.goToMovie(found);
+     }
     public ImageIcon getImageIcon(String url){
         if (imgs.containsKey(url))
             return imgs.get(url);
@@ -72,7 +92,9 @@ public class MainController {
         imgs.put(url, icon);
         return icon;
     }
-    
+   public void updateTicketTable(Ticket ticket){
+            dbc.createTicket(ticket);
+    }
     public String getCinemaName(int houseID){
         if (houseCinema.containsKey(houseID))
             return houseCinema.get(houseID);
@@ -89,7 +111,20 @@ public class MainController {
         String[] cinemaName = new String[houseID.length];
         return cinemaName;
     }
-   
+       public Movie getMovies(int mid){
+        Movie target = null;
+        if (movieMap.containsKey(mid))
+            return movieMap.get(mid);
+        ArrayList<Movie> allM = dbc.findAllMovie();
+        for(Movie m: allM){
+            if (m.getMovieId() == mid){
+                movieMap.put(mid, m);
+                target = m;
+                break;
+            }
+        }
+        return target;
+    }
    
     public static void main(String args[]) {
 
@@ -130,6 +165,13 @@ public class MainController {
         }
 //        System.out.println(onShowMovies.size());
 //        System.out.println(upComingMovies.size());
+    }
+    
+    public List<Movie> getAllOnShow(){
+        return onShowMovies;
+    }
+    public List<Movie> getAllUpcoming(){
+        return upComingMovies;
     }
     
     public List<Movie> getOnShow(){
@@ -213,7 +255,40 @@ public class MainController {
     
     public List<Schedule> findSchedulesByDate (String Date)
     {
-        return dbc.findSchedulesByDate(Date);
+        return dbc.findSchedules(Date);
+    }
+    
+    public void createSchedule (Schedule s)
+    {
+         dbc.createSchedule(s);
+    }
+    
+    public void updateSchedule (Schedule s)
+    {
+        System.out.println("MovieName: " + s.getMovieName() +" StartTime: " + s.getStartTime() + " houseName: " + s.getHouseName()); 
+        dbc.updateSchedule(s);
+    }
+    
+    public void deleteSchedule (String movieName, boolean if3D, String startTime)
+    {
+        System.out.println(movieName +" "+ if3D +" " +startTime);
+        dbc.deleteSchedule(movieName,if3D,startTime);
+    }
+        
+    
+    public void getBookingRecord(int userId){
+        ArrayList<Ticket> tickets = dbc.findAllTicket();
+        for(Ticket t:tickets)
+        {
+            if(t.getUserId() == userId)
+            {
+            }
+        }
+    }
+    
+    public void createCinema(Cinema c)
+    {
+        dbc.createCinema(c);
     }
             
 }
