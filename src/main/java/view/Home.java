@@ -21,8 +21,11 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultCellEditor;
 import javax.swing.ImageIcon;
@@ -249,12 +252,12 @@ public class Home extends javax.swing.JFrame {
         preferredNameTextField = new javax.swing.JTextField();
         passwordField = new javax.swing.JPasswordField();
         confirmedPasswordField = new javax.swing.JPasswordField();
-        jTextField5 = new javax.swing.JTextField();
+        contactTextField = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        monthTextField = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
-        jTextField6 = new javax.swing.JTextField();
-        jTextField7 = new javax.swing.JTextField();
+        yearTextField = new javax.swing.JTextField();
+        dayTextField = new javax.swing.JTextField();
         submitBtn = new javax.swing.JLabel();
         registerConfirmBtn = new javax.swing.JButton();
         maleRadioButton = new javax.swing.JRadioButton();
@@ -272,7 +275,7 @@ public class Home extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         scorePanel = new javax.swing.JPanel();
         score = new javax.swing.JLabel();
-        scoreInput = new javax.swing.JComboBox<String>();
+        scoreInput = new javax.swing.JComboBox<>();
         jLabel12 = new javax.swing.JLabel();
         type = new view.EditableJLabel();
         time = new view.EditableJLabel();
@@ -283,9 +286,9 @@ public class Home extends javax.swing.JFrame {
         language = new view.EditableJLabel();
         purchasePanel = new javax.swing.JPanel();
         bookTicket = new javax.swing.JLabel();
-        cinemaComboBox = new javax.swing.JComboBox<String>();
-        versionComboBox = new javax.swing.JComboBox<String>();
-        dateComboBox = new javax.swing.JComboBox<String>();
+        cinemaComboBox = new javax.swing.JComboBox<>();
+        versionComboBox = new javax.swing.JComboBox<>();
+        dateComboBox = new javax.swing.JComboBox<>();
         schedulePlan = new javax.swing.JPanel();
         updateTime = new javax.swing.JButton();
         allMovies = new javax.swing.JTabbedPane();
@@ -356,11 +359,11 @@ public class Home extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 bookingBtnMouseClicked(evt);
             }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                bookingBtnMouseEntered(evt);
-            }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 bookingBtnMouseExited(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                bookingBtnMouseEntered(evt);
             }
         });
 
@@ -387,11 +390,11 @@ public class Home extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 homeButtonMouseClicked(evt);
             }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                homeButtonMouseEntered(evt);
-            }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 homeButtonMouseExited(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                homeButtonMouseEntered(evt);
             }
         });
 
@@ -422,7 +425,7 @@ public class Home extends javax.swing.JFrame {
                         .addContainerGap()
                         .addGroup(homeMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(aboutUs, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(bookingBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)))
+                            .addComponent(bookingBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, homeMenuLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(homeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -937,7 +940,7 @@ public class Home extends javax.swing.JFrame {
 
         Register8.setBackground(new java.awt.Color(0, 0, 0));
         Register8.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        Register8.setText("Birth Date ");
+        Register8.setText("Birth Date (DD/MM/YYYY)");
 
         Register9.setBackground(new java.awt.Color(0, 0, 0));
         Register9.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
@@ -955,34 +958,31 @@ public class Home extends javax.swing.JFrame {
             }
         });
 
-        jTextField5.addActionListener(new java.awt.event.ActionListener() {
+        contactTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField5ActionPerformed(evt);
+                contactTextFieldActionPerformed(evt);
             }
         });
 
         jLabel14.setText(" / ");
 
-        jTextField4.setText("MM");
-        jTextField4.addActionListener(new java.awt.event.ActionListener() {
+        monthTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField4ActionPerformed(evt);
+                monthTextFieldActionPerformed(evt);
             }
         });
 
         jLabel15.setText(" / ");
 
-        jTextField6.setText("YYYY");
-        jTextField6.addActionListener(new java.awt.event.ActionListener() {
+        yearTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField6ActionPerformed(evt);
+                yearTextFieldActionPerformed(evt);
             }
         });
 
-        jTextField7.setText("DD");
-        jTextField7.addActionListener(new java.awt.event.ActionListener() {
+        dayTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField7ActionPerformed(evt);
+                dayTextFieldActionPerformed(evt);
             }
         });
 
@@ -1025,32 +1025,33 @@ public class Home extends javax.swing.JFrame {
                 .addGroup(RegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(RegisterLayout.createSequentialGroup()
                         .addGroup(RegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(Register6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jSeparator3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 636, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Register7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(RegisterLayout.createSequentialGroup()
+                                .addComponent(registerTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(registerInfoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 507, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 636, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, RegisterLayout.createSequentialGroup()
-                                .addGap(32, 32, 32)
-                                .addGroup(RegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(RegisterLayout.createSequentialGroup()
-                                        .addGroup(RegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addComponent(passwordField, javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(loginNameTextField, javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(Register2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
-                                            .addComponent(Register4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE))
-                                        .addGap(74, 74, 74)
-                                        .addGroup(RegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(Register3, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
-                                            .addComponent(Register1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(preferredNameTextField)
-                                            .addComponent(confirmedPasswordField)))
-                                    .addGroup(RegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(registerConfirmBtn)
-                                        .addGroup(RegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, RegisterLayout.createSequentialGroup()
-                                                .addComponent(Register9, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(jTextField5))
-                                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, RegisterLayout.createSequentialGroup()
+                                .addGroup(RegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(Register6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jSeparator3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 636, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(Register7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, RegisterLayout.createSequentialGroup()
+                                        .addGap(32, 32, 32)
+                                        .addGroup(RegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(RegisterLayout.createSequentialGroup()
+                                                .addGroup(RegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                    .addComponent(passwordField, javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(loginNameTextField, javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(Register2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
+                                                    .addComponent(Register4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE))
+                                                .addGap(74, 74, 74)
+                                                .addGroup(RegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                    .addComponent(Register3, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
+                                                    .addComponent(Register1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                    .addComponent(preferredNameTextField)
+                                                    .addComponent(confirmedPasswordField)))
+                                            .addGroup(RegisterLayout.createSequentialGroup()
                                                 .addGroup(RegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                                     .addGroup(RegisterLayout.createSequentialGroup()
                                                         .addComponent(maleRadioButton, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1060,25 +1061,26 @@ public class Home extends javax.swing.JFrame {
                                                     .addGroup(RegisterLayout.createSequentialGroup()
                                                         .addComponent(Register5, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                         .addGap(71, 71, 71)))
-                                                .addGroup(RegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                    .addComponent(Register8, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGroup(RegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                     .addGroup(RegisterLayout.createSequentialGroup()
                                                         .addGap(2, 2, 2)
-                                                        .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(dayTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                         .addComponent(jLabel14)
                                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(monthTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                         .addComponent(jLabel15)
                                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                        .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))))
-                            .addGroup(RegisterLayout.createSequentialGroup()
-                                .addComponent(registerTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(registerInfoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 636, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                        .addComponent(yearTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                    .addComponent(Register8)))
+                                            .addGroup(RegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                .addComponent(registerConfirmBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, RegisterLayout.createSequentialGroup()
+                                                    .addComponent(Register9, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addGap(18, 18, 18)
+                                                    .addComponent(contactTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, RegisterLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -1128,21 +1130,21 @@ public class Home extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(RegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel14)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(monthTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel15)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(yearTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dayTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(maleRadioButton)
                     .addComponent(femaleRadioButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(RegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Register9, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(contactTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(submitBtn)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(registerConfirmBtn)
-                .addContainerGap(252, Short.MAX_VALUE))
+                .addContainerGap(258, Short.MAX_VALUE))
         );
 
         DisplayPanel.add(Register, "register");
@@ -1230,7 +1232,7 @@ public class Home extends javax.swing.JFrame {
         scorePanel.add(score, "display");
 
         scoreInput.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
-        scoreInput.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0.0", "0.1", "0.2", "0.3", "0.4", "0.5", "0.6", "0.7", "0.8", "0.9", "1.0", "1.1", "1.2", "1.3", "1.4", "1.5", "1.6", "1.7", "1.8", "1.9", "2.0", "2.1", "2.2", "2.3", "2.4", "2.5", "2.6", "2.7", "2.8", "2.9", "3.0", "3.1", "3.2", "3.3", "3.4", "3.5", "3.6", "3.7", "3.8", "3.9", "4.0", "4.1", "4.2", "4.3", "4.4", "4.5", "4.6", "4.7", "4.8", "4.9", "5.0" }));
+        scoreInput.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0.0", "0.1", "0.2", "0.3", "0.4", "0.5", "0.6", "0.7", "0.8", "0.9", "1.0", "1.1", "1.2", "1.3", "1.4", "1.5", "1.6", "1.7", "1.8", "1.9", "2.0", "2.1", "2.2", "2.3", "2.4", "2.5", "2.6", "2.7", "2.8", "2.9", "3.0", "3.1", "3.2", "3.3", "3.4", "3.5", "3.6", "3.7", "3.8", "3.9", "4.0", "4.1", "4.2", "4.3", "4.4", "4.5", "4.6", "4.7", "4.8", "4.9", "5.0" }));
         scoreInput.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 scoreInputKeyPressed(evt);
@@ -1280,15 +1282,15 @@ public class Home extends javax.swing.JFrame {
 
         cinemaComboBox.setBackground(new java.awt.Color(255, 153, 153));
         cinemaComboBox.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        cinemaComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Cinema" }));
+        cinemaComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cinema" }));
 
         versionComboBox.setBackground(new java.awt.Color(255, 153, 153));
         versionComboBox.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        versionComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Version" }));
+        versionComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Version" }));
 
         dateComboBox.setBackground(new java.awt.Color(255, 153, 153));
         dateComboBox.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        dateComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Date" }));
+        dateComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Date" }));
 
         schedulePlan.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -2029,21 +2031,21 @@ public class Home extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_preferredNameTextFieldActionPerformed
 
-    private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
+    private void contactTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contactTextFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField5ActionPerformed
+    }//GEN-LAST:event_contactTextFieldActionPerformed
 
-    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
+    private void monthTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_monthTextFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField4ActionPerformed
+    }//GEN-LAST:event_monthTextFieldActionPerformed
 
-    private void jTextField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField6ActionPerformed
+    private void yearTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_yearTextFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField6ActionPerformed
+    }//GEN-LAST:event_yearTextFieldActionPerformed
 
-    private void jTextField7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField7ActionPerformed
+    private void dayTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dayTextFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField7ActionPerformed
+    }//GEN-LAST:event_dayTextFieldActionPerformed
 
     private void submitBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_submitBtnMouseClicked
         // TODO add your handling code here:
@@ -2142,10 +2144,10 @@ public class Home extends javax.swing.JFrame {
 
     private void groupButton( ) {
 
-    ButtonGroup bg1 = new ButtonGroup( );
+    ButtonGroup buttonGroup = new ButtonGroup( );
 
-    bg1.add(maleRadioButton);
-    bg1.add(femaleRadioButton);
+    buttonGroup.add(maleRadioButton);
+    buttonGroup.add(femaleRadioButton);
 
 }
     
@@ -2618,8 +2620,29 @@ public class Home extends javax.swing.JFrame {
 
     private void registerConfirmBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerConfirmBtnActionPerformed
         // TODO add your handling code here:
-        dbc.createUser((new User(preferredNameTextField.getText(), loginNameTextField.getText(), new String(passwordField.getPassword()), "01-01-1995", 0, 6666666)));
-        registerInfoLabel.setText("User Created!");
+        registerInfoLabel.setForeground(Color.red);
+        if (preferredNameTextField.getText().isEmpty() || loginNameTextField.getText().isEmpty() || passwordField.getPassword().length == 0 || confirmedPasswordField.getPassword().length == 0 || dayTextField.getText().isEmpty() || monthTextField.getText().isEmpty() || yearTextField.getText().isEmpty() || contactTextField.getText().isEmpty() || (!maleRadioButton.isSelected() && !femaleRadioButton.isSelected())) {
+            registerInfoLabel.setText("Please fill in all the blanks!");
+        } else if (!Arrays.equals(passwordField.getPassword(), confirmedPasswordField.getPassword())) {
+            registerInfoLabel.setText("Please confirm your password!");
+        } else if (!isNumeric(dayTextField.getText()) || !isNumeric(monthTextField.getText()) || !isNumeric(yearTextField.getText())) {
+            registerInfoLabel.setText("Date should only contains numbers!");
+        } else if (!isValidDate(dayTextField.getText() + "-" + monthTextField.getText() + "-" + yearTextField.getText())) {
+            registerInfoLabel.setText("Please input a valid date!");
+        } else if (!isNumeric(contactTextField.getText()) || contactTextField.getText().length() != 8) {
+            registerInfoLabel.setText("Please input a valid phone number!");
+        } else if (isUsernameExisting(loginNameTextField.getText())) {
+            registerInfoLabel.setText("The login name exists! Please change a login name!");
+        } else {
+            int gender = 0;
+            if (maleRadioButton.isSelected()) {
+                gender = 0;
+            } else if (femaleRadioButton.isSelected()) {
+                gender = 1;
+            }
+            dbc.createUser((new User(preferredNameTextField.getText(), loginNameTextField.getText(), new String(passwordField.getPassword()), dayTextField.getText() + "-" + monthTextField.getText() + "-" + yearTextField.getText(), gender, Integer.parseInt(contactTextField.getText()))));
+            registerInfoLabel.setText("User Created!");
+        }
     }//GEN-LAST:event_registerConfirmBtnActionPerformed
 
     private void schedulePanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_schedulePanelMouseClicked
@@ -2715,8 +2738,36 @@ public class Home extends javax.swing.JFrame {
         sportColumn.setCellRenderer(renderer);
     }
     
+    private boolean isValidDate(String inDate) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        dateFormat.setLenient(false);
+    try {
+        dateFormat.parse(inDate.trim());
+    } catch (ParseException pe) {
+        return false;
+    }
+     return true;
+    }
     
+    private boolean isUsernameExisting(String username) {
+        boolean isUsernameExisting = false;
+        ArrayList<User> userList = dbc.findAllUser();
+        for (User user : userList) {
+            if (username.equals(user.getUsername())) {
+                isUsernameExisting = true;
+                break;
+            } else {
+                isUsernameExisting = false;
+            }
+        }
+        return isUsernameExisting;
+    }
     
+    private boolean isNumeric(String str) {
+        Pattern pattern = Pattern.compile("[0-9]*"); 
+        Matcher isNum = pattern.matcher(str);
+        return isNum.matches(); 
+    }
     
     private void drawSeats(Schedule sch){
         schedulePlan.removeAll();
@@ -2821,7 +2872,9 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel confirmScheduleBtn2;
     private javax.swing.JLabel confirmScheduleBtn3;
     private javax.swing.JPasswordField confirmedPasswordField;
+    private javax.swing.JTextField contactTextField;
     private javax.swing.JComboBox<String> dateComboBox;
+    private javax.swing.JTextField dayTextField;
     private view.EditableJLabel description;
     private view.EditableJLabel director;
     private javax.swing.JLabel editMovieBtn;
@@ -2872,10 +2925,6 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
     private org.jdesktop.swingx.JXDatePicker jXDatePicker1;
     private view.EditableJLabel language;
     private javax.swing.JTextField locationC;
@@ -2887,6 +2936,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel logout;
     private javax.swing.JRadioButton maleRadioButton;
     private view.GradientPanel menu;
+    private javax.swing.JTextField monthTextField;
     private view.MovieFilter movieFilter1;
     private view.MovieFilter movieFilter2;
     private javax.swing.JLabel movieName;
@@ -2932,6 +2982,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JTextField username;
     private javax.swing.JComboBox<String> versionComboBox;
     private javax.swing.JLabel warningLabel;
+    private javax.swing.JTextField yearTextField;
     // End of variables declaration//GEN-END:variables
    
     //customie variable declaration
