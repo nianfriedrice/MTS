@@ -556,7 +556,7 @@ public class DatabaseConnector {
         return foundMovie;
     }
 
-    public void updateMovie(String name, String imageUrl, String description, String language, boolean if3D, int length, String category, String director, String starring, String releaseDate, String offDate, float score) {
+    public void updateMovie(String name, String imageUrl, String description, String language, boolean if3D, int length, String category, String director, String starring, String releaseDate,float score) {
         Movie foundMovie = findMovie(name,if3D);
         connect();
         try {
@@ -574,7 +574,7 @@ public class DatabaseConnector {
                         director + "', STARRING = '" +
                         starring + "', RELEASE_DATE = '" +
                         releaseDate + "', OFF_DATE = '" +
-                        offDate + "', SCORE = " +
+                        foundMovie.getOffDate() + "', SCORE = " +
                         score + " " +
                         "WHERE ID = " + foundMovie.getMovieId();
                 statement.executeUpdate(sqlStr);

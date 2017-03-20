@@ -249,8 +249,10 @@ public class MainController {
         }
         }
     
-    public void updateMovie(String description, String director, String language, String starring, String type, String time, String releaseDate){
+    public void updateMovie(String name, String imageUrl, String description, String language, boolean if3D, int length, String category, String director, String starring, String releaseDate, String offDate, float score){
         //implementation
+        
+        //dbc.updateMovie(name, imageUrl, description, language, false, length, category, director, starring, releaseDate, offDate, score);
     }
     
     public List<Schedule> findSchedulesByDate (String Date)
